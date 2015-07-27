@@ -2,8 +2,8 @@ require 'sinatra/base'
 require 'json'
 
 class CalculatorApp < Sinatra::Base
-  def initialize(path = nil)
-    super
+  def initialize(app, path = nil)
+    super app
 
     @calculator_loader = CalculatorLoader.new(path)
   end
