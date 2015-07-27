@@ -8,4 +8,4 @@ require './calculator.rb'
 require './calculatorloader.rb'
 require './calculatorapp.rb'
 
-CalculatorApp.run!
+CalculatorApp.setup.run!
