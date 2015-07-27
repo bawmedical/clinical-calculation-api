@@ -1,3 +1,3 @@
 class AddCalculator < Calculator
-    endpoint "foo"
+  endpoint "foo"
 end

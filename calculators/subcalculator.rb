@@ -1,3 +1,3 @@
 class SubCalculator < Calculator
-    endpoint "foobar"
+  endpoint "foobar"
 end
