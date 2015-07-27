@@ -1,4 +1,6 @@
 class Calculator
+  include Logging
+
   def calculate
     raise NotImplementedError
   end
