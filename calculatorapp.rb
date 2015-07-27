@@ -24,7 +24,7 @@ class CalculatorApp < Sinatra::Base
         endpoint = Calculators.get_endpoint params[:endpoint]
 
         if endpoint.nil?
-            response = notfound_response
+            response = not_found_response
         else
             begin
                 data = JSON.parse request.body.read
