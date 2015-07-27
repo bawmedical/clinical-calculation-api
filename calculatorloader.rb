@@ -21,8 +21,6 @@ class CalculatorLoader
     self
   end
 
-  def get_calculator(name)
-    get_calculators.find { |calculator| calculator.get_endpoint == name }
   def get_calculator(endpoint_name)
     get_calculators.find { |calculator| calculator.get_endpoint == endpoint_name }
   end
