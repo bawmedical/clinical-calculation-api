@@ -13,7 +13,7 @@ module Logging
   end
 
   def self.create_logger_for(class_name)
-    logger = Logger.new STDOUT
+    logger = Logger.new STDERR
     logger.progname = class_name
     logger.formatter = LogFormatter.new
     logger
