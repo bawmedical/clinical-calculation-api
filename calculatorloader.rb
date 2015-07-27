@@ -3,11 +3,10 @@ class CalculatorLoader
 
   CALCULATOR_SUFFIX = '.rb'
 
-  def initialize(path, auto_load = true)
-    @calculators = []
+  def initialize(path = nil)
     @path = path || './calculators'
 
-    load_calculators if auto_load
+    load_calculators
   end
 
   def get_calculators
@@ -15,9 +14,13 @@ class CalculatorLoader
   end
 
   def load_calculators
-    Dir[File.join(@path, '*' + CALCULATOR_SUFFIX)].map { |name| load name }
-    @calculators = get_calculators
+    logger.debug "Loading calculators from `#{@path}'"
 
+    Dir[File.join(@path, '*' + CALCULATOR_SUFFIX)].map do |name|
+      load name
+      logger.debug "Loaded `#{name}'"
+    end
+    
     self
   end
 

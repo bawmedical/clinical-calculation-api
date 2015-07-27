@@ -1,50 +1,40 @@
 require 'sinatra/base'
 require 'json'
 
+require './calculatorrouter.rb'
+require './calculatorloader.rb'
+
 class CalculatorApp < Sinatra::Base
   include Logging
 
-  ERRORS = {
-    invalid_request: { error: 400, message: "Invalid request" },
-    not_found: { error: 404, message: "Not found" },
-    server_error: { error: 500, message: "Server error" }
-  }
+  def self.setup(loader = nil)
+    return self if defined? @router
 
-  def self.setup(path = nil, auto_load = true)
-    return self if defined? @loader
+    logger.debug "Setting up with #{loader.nil? ? "default loader" : "custom loader"}"
 
-    @loader = CalculatorLoader.new path
+    @router = CalculatorRouter.new(loader || CalculatorLoader.new)
 
     self
   end
 
-  def self.handle_request(endpoint, data)
-
+  def router
+    self.class.instance_variable_get("@router")
   end
 
   post '/:endpoint' do
-    p self.methods.sort
-    endpoint = @@loader.get_calculator params[:endpoint]
+    endpoint_name = params[:endpoint]
+    endpoint_valid = router.validate_endpoint endpoint_name
 
-    if endpoint.nil?
-      response = ERRORS[:not_found]
-    else
-      begin
-        data = JSON.parse request.body.read
+    logger.debug "Requested #{endpoint_valid ? "" : "invalid "}endpoint `#{endpoint_name}'"
 
-        begin
-          response = handle_request(endpoint, data)
+    begin
+      data = JSON.parse request.body.read
+    rescue JSON::ParserError
+      response = CalculatorRouter::ERRORS[:invalid_request]
+    end
 
-          if response.nil?
-
-            response = ERRORS[:server_error]
-          end
-        rescue
-          response = ERRORS[:server_error]
-        end
-      rescue
-        response = ERRORS[:invalid_request]
-      end
+    if !data.nil?
+      router.handle_route(params[:endpoint], data)
     end
 
     response.to_json
