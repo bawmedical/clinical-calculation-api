@@ -43,7 +43,7 @@ module Logging
       end
 
       possible_colors = String.color_codes.keys.delete_if { |sym| sym.to_s.include?("black") || sym.to_s.include?("default") }
-      progname_color = possible_colors.sample
+      progname_color = possible_colors[progname.hash % possible_colors.length]
 
       "#{time.strftime("%H:%M:%S")} [#{severity.colorize(color)}] [#{progname.colorize(progname_color)}]: #{msg}\n"
     end
