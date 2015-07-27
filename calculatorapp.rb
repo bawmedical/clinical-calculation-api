@@ -2,7 +2,11 @@ require 'sinatra/base'
 require 'json'
 
 class CalculatorApp < Sinatra::Base
-  Calculators.setup
+  def initialize(path = nil)
+    super
+
+    @calculator_loader = CalculatorLoader.new(path)
+  end
 
   def handle_request(endpoint, data)
 
@@ -21,7 +25,7 @@ class CalculatorApp < Sinatra::Base
   end
 
   post '/:endpoint' do
-    endpoint = Calculators.get_endpoint params[:endpoint]
+    endpoint = @calculator_loader.get_calculator params[:endpoint]
 
     if endpoint.nil?
       response = not_found_response
