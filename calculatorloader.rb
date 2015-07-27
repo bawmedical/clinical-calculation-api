@@ -1,5 +1,4 @@
 class CalculatorLoader
-  alias_method :reload, :load
   include Logging
 
   CALCULATOR_SUFFIX = '.rb'
