@@ -2,6 +2,7 @@ require 'sinatra/base'
 require 'json'
 
 require_relative './logging.rb'
+require_relative './error.rb'
 
 require_relative './calculatorrouter.rb'
 require_relative './calculatorloader.rb'
@@ -23,12 +24,20 @@ class CalculatorApp < Sinatra::Base
     self.class.instance_variable_get("@router")
   end
 
-  post '/:endpoint' do
-    endpoint_name = params[:endpoint]
+  post '/:calculator' do
+    calculator_name = params[:calculator]
 
-    logger.debug "Requested #{router.endpoint?(endpoint_name) ? "" : "invalid "}endpoint `#{endpoint_name}'"
+    fields = (request.POST.map { |k, v| [ k.to_sym, v ] }).to_h
 
-    response = router.handle_endpoint(endpoint_name, request.POST)
+    logger.debug "Requested calculator `#{calculator_name}' with fields `#{fields.keys}'"
+
+    response = router.handle_request(calculator_name, fields)
+
+    if response.is_a? Error
+      response = { error: response.code, message: response.message }
+    else
+      response = { result: response }
+    end
 
     response.to_json
   end

@@ -101,10 +101,10 @@ class CalculatorLoader < ClassLoader
   end
 
   def has_calculator?(name)
-    !get_calculator(name).nil?
+    !get_calculator(name.to_sym).nil?
   end
 
   def get_calculator(name)
-    calculators.find { |calculator| calculator.name == name }
+    calculators.find { |calculator| calculator.name.to_sym == name.to_sym }
   end
 end
