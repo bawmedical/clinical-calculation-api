@@ -12,6 +12,6 @@ end
 loader = CalculatorLoader.new
 router = CalculatorRouter.new loader
 
-loader.load_calculators('./calculators')
+loader.load_calculators './calculators'
 
 CalculatorApp.setup(loader).run!
