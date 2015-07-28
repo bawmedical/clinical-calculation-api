@@ -2,7 +2,7 @@ class String
   def is_integer?
     begin
       Integer(self).is_a? Integer
-    raise ArgumentError
+    rescue ArgumentError
       false
     end
   end
@@ -10,10 +10,10 @@ class String
   def is_float?
     begin
       Float(self).is_a? Float
-    raise ArgumentError
+    rescue ArgumentError
       false
     end
   end
 
-  alias_method :is_number?, :is_float
+  alias_method :is_number?, :is_float?
 end
