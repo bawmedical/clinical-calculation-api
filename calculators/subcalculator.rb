@@ -1,3 +1,7 @@
 class SubCalculator < Calculator
-  endpoint "foobar"
+  endpoint "subtract"
+
+  def calculate(first:, last:)
+    first - last
+  end
 end

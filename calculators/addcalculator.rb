@@ -1,3 +1,7 @@
 class AddCalculator < Calculator
-  endpoint "foo"
+  endpoint "add"
+
+  def calculate(first:, second:)
+    first + second
+  end
 end
