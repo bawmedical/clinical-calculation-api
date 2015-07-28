@@ -19,19 +19,6 @@ class CalculatorRouter
     @loader.get_calculators.find { |calculator| calculator.get_endpoint == endpoint_name }
   end
 
-  def convert_to_type(value, type)
-    return value if type.nil?
-
-    case type
-      when :number, :float
-        return Float(value)
-      when :integer
-        return Integer(value)
-    end
-
-    raise
-  end
-
   def convert_keys_to_sym(hash)
     new_hash = {}
     hash.each { |k, v| new_hash[k.to_sym] = v }
@@ -45,10 +32,10 @@ class CalculatorRouter
   def get_invalid_args(endpoint, data)
     invalid_args = data.keys.select do |k|
       begin
-        convert_to_type data[k], endpoint.get_arg_type(k)
+        Float(data[k])
 
         false
-      rescue => e
+      rescue
         true
       end
     end
@@ -58,7 +45,7 @@ class CalculatorRouter
     converted_data = {}
 
     data.each do |k, v|
-      converted_data[k] = convert_to_type v, endpoint.get_arg_type(k)
+      converted_data[k] = Float(v)
     end
 
     convert_data
