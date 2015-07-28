@@ -1,3 +1,5 @@
+require_relative './logging.rb'
+
 class Calculator
   include Logging
 

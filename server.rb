@@ -1,11 +1,7 @@
 require 'rubygems'
 require 'bundler/setup'
 
-require './logging.rb'
-
-require './calculator.rb'
-require './calculatorloader.rb'
-require './calculatorapp.rb'
+require './lib/calculatorapp.rb'
 
 CalculatorApp.configure do |app|
   app.set :server_settings, { AccessLog: [] }

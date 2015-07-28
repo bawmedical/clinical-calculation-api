@@ -1,3 +1,5 @@
+require_relative './logging.rb'
+
 class CalculatorLoader
   include Logging
 
@@ -20,7 +22,7 @@ class CalculatorLoader
       load name
       logger.debug "Loaded `#{name}'"
     end
-    
+
     self
   end
 
