@@ -9,12 +9,12 @@ require_relative './calculatorloader.rb'
 class CalculatorApp < Sinatra::Base
   include Logging
 
-  def self.setup(router = nil, loader = nil)
+  def self.setup(router)
     return self if defined? @router
 
-    logger.debug "Setting up with #{router.nil? ? "default" : "custom"} router and #{loader.nil? ? "default" : "custom"} loader"
+    logger.debug "Setting up calculator app"
 
-    @router = router || CalculatorRouter.new(loader || CalculatorLoader.new)
+    @router = router
 
     self
   end

@@ -1,5 +1,3 @@
-require_relative './calculator.rb'
-
 class CalculatorRouter
   include Logging
 

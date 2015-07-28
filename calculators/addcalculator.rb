@@ -1,7 +1,5 @@
-class AddCalculator < Calculator
-  endpoint "add"
+name :add
 
-  def self.calculate(first:, second:)
-    first + second
-  end
+execute do
+  field_first + field_second
 end

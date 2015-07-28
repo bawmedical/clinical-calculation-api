@@ -1,7 +1,5 @@
-class SubCalculator < Calculator
-  endpoint "subtract"
+name :subtract
 
-  def self.calculate(first:, second:)
-    first - second
-  end
+execute do
+  field_first - field_second
 end
