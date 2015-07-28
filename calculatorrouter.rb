@@ -11,7 +11,7 @@ class CalculatorRouter
     @loader = loader
   end
 
-  def validate_endpoint(endpoint_name)
+  def is_endpoint(endpoint_name)
     !get_endpoint(endpoint_name).nil?
   end
 
