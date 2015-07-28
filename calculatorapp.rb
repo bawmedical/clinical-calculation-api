@@ -23,7 +23,7 @@ class CalculatorApp < Sinatra::Base
 
   post '/:endpoint' do
     endpoint_name = params[:endpoint]
-    endpoint_valid = router.is_endpoint endpoint_name
+    endpoint_valid = router.endpoint? endpoint_name
 
     logger.debug "Requested #{endpoint_valid ? "" : "invalid "}endpoint `#{endpoint_name}'"
 
