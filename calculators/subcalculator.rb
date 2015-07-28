@@ -1,7 +1,7 @@
 class SubCalculator < Calculator
   endpoint "subtract"
 
-  def calculate(first:, last:)
-    first - last
+  def self.calculate(first:, second:)
+    first - second
   end
 end
