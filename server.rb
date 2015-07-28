@@ -17,4 +17,4 @@ router = CalculatorRouter.new loader
 
 loader.load_calculators './calculators'
 
-CalculatorApp.setup(loader).run!
+CalculatorApp.setup(router).run!
