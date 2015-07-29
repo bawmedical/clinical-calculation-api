@@ -7,7 +7,6 @@ def get_bool(name)
     raise InvalidRequestError, "#{name} must be a boolean (true/false)"
   end
 end
-
 name :wellsdvt
 
 execute do
