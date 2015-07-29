@@ -2,7 +2,7 @@ def get_bool(name)
   value = send "field_#{name}"
 
   begin
-    name.to_bool
+    value.to_s.to_bool
   rescue ArgumentError
     raise InvalidRequestError, "#{name} must be a boolean (1/0)"
   end
