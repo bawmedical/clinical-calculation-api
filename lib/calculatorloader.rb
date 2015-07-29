@@ -1,16 +1,5 @@
 require_relative "./classloader.rb"
-
-class NoFieldError < NameError
-  def initialize(field)
-    super
-
-    @field = field
-  end
-
-  def field
-    @field
-  end
-end
+require_relative "./error.rb"
 
 class CalculatorLoaderContext < ClassLoaderContext
   FIELD_PREFIX = :field_

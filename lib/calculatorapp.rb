@@ -33,8 +33,8 @@ class CalculatorApp < Sinatra::Base
 
     response = router.handle_request(calculator_name, fields)
 
-    if response.is_a? Error
-      response = { error: response.code, message: response.message }
+    if response.is_a? ApiError
+      response = response.to_h
     else
       response = { result: response }
     end
