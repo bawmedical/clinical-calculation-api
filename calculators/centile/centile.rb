@@ -3,7 +3,7 @@ require "json"
 
 name :centile
 
-require_relative "./lib/centile.rb"
+require_relative "./lib/centilecalculator.rb"
 
 def months_between(start_date, end_date)
   months = ((start_date - end_date).abs / (365.25 / 12)).round
