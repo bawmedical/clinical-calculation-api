@@ -32,9 +32,9 @@ class ServerError < ApiError
   end
 end
 
-class NoFieldError < InvalidRequestError
-  def initialize(field, message = nil)
-    super (message || "Missing field '#{field}'")
+class FieldError < InvalidRequestError
+  def initialize(field, message)
+    super message
 
     @field = field
   end
@@ -44,6 +44,12 @@ class NoFieldError < InvalidRequestError
   end
 
   def to_h
-    super.merge({ field: field })
+    super.merge({ error_field: field })
+  end
+end
+
+class NoFieldError < FieldError
+  def initialize(field, message = nil)
+    super field, (message || "Missing field `#{field}'")
   end
 end
