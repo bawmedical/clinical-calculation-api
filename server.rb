@@ -13,10 +13,18 @@ if __FILE__ == $0
     app.set :server_settings, { AccessLog: [] }
   end
 
+  logger = Logging.logger_for "Server"
+
   loader = CalculatorLoader.new
   router = CalculatorRouter.new loader
 
   loader.load_calculators './calculators'
 
-  CalculatorApp.setup(router).run!
+  begin
+    CalculatorApp.setup(router).run!
+  rescue => error
+    logger.error "Error: #{error.message}"
+    error.backtrace.each { |line| logger.error line }
+  end
+
 end
