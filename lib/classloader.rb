@@ -26,6 +26,10 @@ class ClassLoader
   def load_file(filename)
     file_module = get_file_module filename
 
+    if file_module.nil?
+      return nil
+    end
+
     @loaded_files[filename] = file_module
   end
 
