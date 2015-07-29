@@ -83,12 +83,7 @@ class CalculatorLoader < ClassLoader
     logger.debug "Loading file `#{filename}'"
 
     loaded_file = super
-
-    if loaded_file.nil?
-      logger.warn "Failed to load `#{filename}'"
-    else
-      logger.debug "Loaded `#{loaded_file.name}' from `#{filename}'"
-    end
+    logger.debug "Loaded `#{loaded_file.name}' from `#{filename}'"
 
     loaded_file
   end
