@@ -64,7 +64,7 @@ class CalculatorLoader < ClassLoader
   def load_directory(directory)
     logger.debug "Loading directory `#{directory}'"
 
-    Dir.glob(File.join(directory, CALC_EXT)).each { load_file filename }
+    Dir.glob(File.join(directory, "*#{CALC_EXT}")).each { |filename| load_file filename }
   end
 
   def load_calculators(directory)
