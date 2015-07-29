@@ -4,7 +4,7 @@ def get_bool(name)
   begin
     value.to_s.to_bool
   rescue ArgumentError
-    raise InvalidRequestError, "#{name} must be a boolean (1/0)"
+    raise InvalidRequestError, "#{name} must be a boolean (true/false)"
   end
 end
 
