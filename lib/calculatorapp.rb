@@ -39,6 +39,8 @@ class CalculatorApp < Sinatra::Base
       response = { result: response }
     end
 
+    response.merge!({ request_fields: fields })
+
     response.to_json
   end
 end
