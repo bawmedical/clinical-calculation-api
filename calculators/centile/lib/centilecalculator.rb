@@ -4,6 +4,14 @@ class CentileCalculator
   module Sex
     MALE = 0
     FEMALE = 1
+
+    def self.from_s(sex)
+      result = self.constants.find { |name| name.to_s.casecmp(sex.to_s) == 0 || self.const_get(name).to_s.casecmp(sex.to_s) == 0 }
+
+      return nil if result.nil?
+
+      self.const_get(result)
+    end
   end
 
   def initialize(lms_hash)
