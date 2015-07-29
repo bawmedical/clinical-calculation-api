@@ -1,18 +1,18 @@
 require "date"
 require "json"
 
+name :centile
+
 require_relative "./lib/centile.rb"
 
 def months_between(start_date, end_date)
   months = ((start_date - end_date).abs / (365.25 / 12)).round
 end
 
-if !File.exists? "./data/lmsadat.json"
+if !File.exists? "./data/lmsdata.json"
   logger.error "Missing lmsdata.json!"
   return
 end
-
-name :centile
 
 centile_calculator = CentileCalculator.new
 
