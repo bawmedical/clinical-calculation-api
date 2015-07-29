@@ -17,8 +17,6 @@ class CalculatorRouter
       return InvalidRequestError.new "Field `#{invalid_field}' must be a float"
     end
 
-    fields = (fields.map { |k, v| [ k, Float(v) ] }).to_h
-
     begin
       return NotFoundError.new unless @loader.has_calculator? calculator_name
 
