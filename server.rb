@@ -1,13 +1,13 @@
-require 'rubygems'
-require 'bundler/setup'
+require "rubygems"
+require "bundler/setup"
 
-require './lib/ext/hash.rb'
-require './lib/ext/string.rb'
-require './lib/ext/symbol.rb'
+require "./lib/ext/hash.rb"
+require "./lib/ext/string.rb"
+require "./lib/ext/symbol.rb"
 
-require './lib/calculatorapp.rb'
-require './lib/calculatorloader.rb'
-require './lib/calculatorrouter.rb'
+require "./lib/calculatorapp.rb"
+require "./lib/calculatorloader.rb"
+require "./lib/calculatorrouter.rb"
 
 if __FILE__ == $0
   CalculatorApp.configure do |app|
@@ -19,7 +19,7 @@ if __FILE__ == $0
   loader = CalculatorLoader.new
   router = CalculatorRouter.new loader
 
-  loader.load_calculators './calculators'
+  loader.load_calculators "./calculators"
 
   begin
     CalculatorApp.setup(router).run!

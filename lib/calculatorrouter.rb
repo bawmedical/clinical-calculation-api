@@ -1,4 +1,4 @@
-require_relative './error.rb'
+require_relative "./error.rb"
 
 class CalculatorRouter
   include Logging

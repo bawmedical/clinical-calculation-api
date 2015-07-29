@@ -20,7 +20,7 @@ class CalculatorLoaderContext < ClassLoaderContext
 
   def field_name(name, reverse = false)
     if reverse
-      name.to_sym.sub /^#{FIELD_PREFIX.to_s}/, ''
+      name.to_sym.sub /^#{FIELD_PREFIX.to_s}/, ""
     else
       FIELD_PREFIX + name.to_sym
     end
@@ -52,7 +52,7 @@ end
 class CalculatorLoader < ClassLoader
   include Logging
 
-  CALC_EXT = '.rb'
+  CALC_EXT = ".rb"
 
   def initialize
     super CalculatorLoaderContext

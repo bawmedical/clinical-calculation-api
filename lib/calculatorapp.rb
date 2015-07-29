@@ -1,11 +1,11 @@
-require 'sinatra/base'
-require 'json'
+require "sinatra/base"
+require "json"
 
-require_relative './logging.rb'
-require_relative './error.rb'
+require_relative "./logging.rb"
+require_relative "./error.rb"
 
-require_relative './calculatorrouter.rb'
-require_relative './calculatorloader.rb'
+require_relative "./calculatorrouter.rb"
+require_relative "./calculatorloader.rb"
 
 class CalculatorApp < Sinatra::Base
   include Logging
@@ -24,7 +24,7 @@ class CalculatorApp < Sinatra::Base
     self.class.instance_variable_get("@router")
   end
 
-  post '/:calculator' do
+  post "/:calculator" do
     calculator_name = params[:calculator]
 
     fields = request.POST.symbolize_keys

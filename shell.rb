@@ -1,6 +1,6 @@
-require 'irb'
-require 'irb/completion'
+require "irb"
+require "irb/completion"
 
-require './server.rb'
+require "./server.rb"
 
 IRB.start

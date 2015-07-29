@@ -1,5 +1,5 @@
-require 'logger'
-require 'colorize'
+require "logger"
+require "colorize"
 
 module Logging
   @loggers = {}
@@ -30,15 +30,15 @@ module Logging
       color = :default
 
       case severity
-        when 'DEBUG'
+        when "DEBUG"
           color = :light_blue
-        when 'WARN'
+        when "WARN"
           color = :magenta
-        when 'INFO'
+        when "INFO"
           color = :cyan
-        when 'ERROR'
+        when "ERROR"
           color = :light_red
-        when 'FATAL'
+        when "FATAL"
           color = :light_red
       end
 
