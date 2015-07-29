@@ -8,15 +8,6 @@ class CalculatorRouter
   end
 
   def handle_request(calculator_name, fields)
-    invalid_fields = fields.keys.select { |k| !fields[k].is_float? }
-
-    if invalid_fields.length > 0
-      invalid_field = invalid_fields.first
-
-      logger.debug "Invalid field `#{invalid_field}'"
-      return InvalidRequestError.new "Field `#{invalid_field}' must be a float"
-    end
-
     begin
       return NotFoundError.new unless @loader.has_calculator? calculator_name
 
