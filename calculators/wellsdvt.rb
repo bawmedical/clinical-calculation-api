@@ -13,27 +13,16 @@ name :wellsdvt
 execute do
   ## Boolean checks for Wells' DVT Criteria
 
-  active_cancer = get_bool("act_canc")
-  bedridden_major_surgery = get_bool("bedridden_maj_surgery")
+  active_cancer = get_bool("active_cancer")
+  bedridden_major_surgery = get_bool("bedridden_major_surgery")
   calf_swollen = get_bool("calf_swollen")
-  collateral_veins = get_bool("collat_veins")
+  collateral_veins = get_bool("collateral_veins")
   full_swelling = get_bool("full_swelling")
-  local_tenderness = get_bool("local_tender")
+  local_tenderness = get_bool("local_tenderness")
   pitting_edema = get_bool("pitting_edema")
-  immobilized_leg = get_bool("immobilized")
-  previous_dvt = get_bool("prev_dvt")
-  alternate_diagnosis = get_bool("alt_diagnosis")
-
-  #raise InvalidRequestError, "act_canc must be a boolean (true / false)",if !field_act_canc.to_bool
-  #raise InvalidRequestError, "bedridden_maj_surgery must be a boolean (true / false)" if !field_bedridden_maj_surgery.to_bool
-  #raise InvalidRequestError, "calf_swollen must be a boolean (true / false)" if !field_calf_swollen.to_bool
-  #raise InvalidRequestError, "collat_veins must be a boolean (true / false)" if !field_collat_veins.to_bool
-  #raise InvalidRequestError, "full_swelling must be a boolean (true / false)" if !field_full_swelling.to_bool
-  #raise InvalidRequestError, "local_tender must be a boolean (true / false)" if !field_local_tender.to_bool
-  #raise InvalidRequestError, "pitting_edema must be a boolean (true / false)" if !field_pitting_edema.to_bool
-  #raise InvalidRequestError, "immobilized must be a boolean (true / false)" if !field_immobilized.to_bool
-  #raise InvalidRequestError, "prev_dvt must be a boolean (true / false)" if !field_prev_dvt.to_bool
-  #raise InvalidRequestError, "alt_diagnosis must be a boolean (true / false)" if !field_alt_diagnosis.to_bool
+  immobilized_leg = get_bool("immobilized_leg")
+  previous_dvt = get_bool("previous_dvt")
+  alternate_diagnosis = get_bool("alternate_diagnosis")
 
   score = 0
   # Active Cancer (Treatment or Pallation within 6 months)
@@ -57,5 +46,5 @@ execute do
   # Alternative diagnosis to DVT at least as likely
   score -= 2 if alternate_diagnosis
 
-  return score
+  score
 end
