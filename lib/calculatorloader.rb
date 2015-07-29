@@ -21,6 +21,10 @@ class CalculatorLoaderContext < ClassLoaderContext
     @fields
   end
 
+  def field?(field_name, prefixed = true)
+    fields.include? field_name(field_name, prefixed)
+  end
+
   def field_name(name, reverse = false)
     if reverse
       name.to_sym.sub /^#{FIELD_PREFIX.to_s}/, ""
