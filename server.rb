@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'bundler/setup'
 
+require './lib/ext/hash.rb'
 require './lib/ext/string.rb'
 require './lib/ext/symbol.rb'
 
