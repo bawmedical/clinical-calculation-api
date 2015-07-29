@@ -8,6 +8,11 @@ module Logging
     @logger ||= Logging.logger_for self.class.name
   end
 
+  def log_error(error)
+    logger.error "Error: #{error.message}"
+    error.backtrace.each { |line| logger.error line }
+  end
+
   def self.logger_for(class_name)
     @loggers[class_name] ||= create_logger_for(class_name)
   end
