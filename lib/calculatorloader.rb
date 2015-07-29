@@ -1,7 +1,10 @@
 require_relative "./classloader.rb"
+require_relative "./logging.rb"
 require_relative "./error.rb"
 
 class CalculatorLoaderContext < ClassLoaderContext
+  include Logging
+
   FIELD_PREFIX = :field_
 
   def initialize(classloader, fields = {})
