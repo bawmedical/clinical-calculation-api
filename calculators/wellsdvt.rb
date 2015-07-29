@@ -12,9 +12,6 @@ name :wellsdvt
 
 execute do
   ## Boolean checks for Wells' DVT Criteria
-  # Active Cancer (Treatment or Pallation within 6 months)
-  # Bedridden recently >= 3 days or maj surgery within 12 weeks
-  # Calf swelling > 3 cm
 
   active_cancer = get_bool("act_canc")
   bedridden_major_surgery = get_bool("bedridden_maj_surgery")
@@ -39,14 +36,25 @@ execute do
   #raise InvalidRequestError, "alt_diagnosis must be a boolean (true / false)" if !field_alt_diagnosis.to_bool
 
   score = 0
+  # Active Cancer (Treatment or Pallation within 6 months)
   score += 1 if active_cancer
+  # Bedridden recently >= 3 days or maj surgery within 12 weeks
   score += 1 if bedridden_major_surgery
+  # Calf swelling > 3 cm
   score += 1 if calf_swollen
+  # Collateral superficial veins present
   score += 1 if collateral_veins
+  # Entire leg swollen
   score += 1 if full_swelling
+  # Localized tenderness along the deep venous system
   score += 1 if local_tenderness
+  # Pitting edema confined to symptomatic leg
   score += 1 if pitting_edema
+  # Paralysis, paresis, or recent plaster immobilization of the extremity
   score += 1 if immobilized_leg
+  # Previously documented DVT
+  score += 1 if previous_dvt
+  # Alternative diagnosis to DVT at least as likely
   score -= 2 if alternate_diagnosis
 
   return score
