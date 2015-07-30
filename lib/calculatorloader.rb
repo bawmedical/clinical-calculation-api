@@ -79,8 +79,6 @@ class CalculatorLoader < ClassLoader
     directories = Dir.glob(File.join(directory, "*")).select do |filename|
       if File.directory? filename
         load_directory filename
-      elsif filename.end_with? CALC_EXT
-        load_file filename
       end
     end
   end
