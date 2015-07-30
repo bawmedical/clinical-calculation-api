@@ -1,22 +1,10 @@
 class ClassLoaderContext
   def initialize(classloader)
     @classloader = classloader
-
-    @name = nil
-    @execute_block = nil
   end
 
-  def name(name = nil)
-    @name = name unless name.nil?
-    @name
-  end
-
-  def call
-    @execute_block.call unless @execute_block.nil?
-  end
-
-  def execute(&block)
-    @execute_block = block
+  def classloader
+    @classloader
   end
 end
 
