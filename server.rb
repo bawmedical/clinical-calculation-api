@@ -9,6 +9,8 @@ require "./lib/calculatorapp.rb"
 require "./lib/calculatorloader.rb"
 require "./lib/calculatorrouter.rb"
 
+puts $0
+
 if __FILE__ == $0
   CalculatorApp.configure do |app|
     app.set :server_settings, { AccessLog: [] }

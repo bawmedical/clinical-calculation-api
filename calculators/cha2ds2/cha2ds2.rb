@@ -36,5 +36,5 @@ execute do
 	score += 1 if vascular_disease_history
 	score += 1 if diabetes
 
-	score
+	{cha2ds2_vasc_score: score, units: "dimensionless"}
 end
