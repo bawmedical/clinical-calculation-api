@@ -10,7 +10,7 @@ class CalculatorLoaderContext < ClassLoaderContext
   def initialize(classloader, fields = {})
     super classloader
 
-    self.fields = fields
+    @fields = fields
   end
 
   def fields=(fields)
