@@ -24,7 +24,7 @@ body {
 
 .intropara {
 	font-family: 'Oxygen', sans-serif;
-	font-size: 20px; 
+	font-size: 20px;
 }
 
 .midcol {
@@ -49,11 +49,11 @@ body {
 
 .help-para-2 {
 	font-family: 'Oxygen', sans-serif;
-	font-size: 20px;	
+	font-size: 20px;
 }
 
 .footer {
-	background-color:#343434;
+	background-color:#222222;
 	height: 50px;
 	margin-top: 35px;
 	text-align: center;
@@ -64,7 +64,7 @@ body {
 }
 
 .footerabout {
-	background-color:#343434;
+	background-color:#222222;
 	height: 50px;
 	margin-top: 35px;
 	text-align: center;
