@@ -20,4 +20,8 @@ class String
       false
     end
   end
+
+  def pluralize(count, suffix)
+    count == 1 ? self : self + suffix
+  end
 end
