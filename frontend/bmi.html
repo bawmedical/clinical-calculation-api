@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Clinical Calculator</title>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+
+    <link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html">Clinical Calculator</a>
+            </div>
+            <div id="navbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="#">DVT</a></li>
+                    <li><a href="#">Diabetes</a></li>
+                    <li class="active"><a href="bmi.html">BMI</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="col-md-12 bmibanner">
+    </div>
+
+    <div class="row">
+        <form class="bmi-form col-md-offset-3 col-md-6">
+            <h2 class="bmi-form-heading">BMI Calculator</h2>
+            <label for="inputheight" class="sr-only">Height</label>
+            <input type="number" id="inputheight" class="form-control" placeholder="Height" required autofocus>
+            <label for="inputweight" class="sr-only">Weight</label>
+            <input type="number" id="inputweight" class="form-control" placeholder="Weight" required>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Calculate</button>
+        </form>
+    </div>
+
+</body>
+</html>
