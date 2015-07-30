@@ -5,6 +5,8 @@ require "./lib/ext/hash.rb"
 require "./lib/ext/string.rb"
 require "./lib/ext/symbol.rb"
 
+require "./lib/helperloader.rb"
+
 require "./lib/calculatorapp.rb"
 require "./lib/calculatorloader.rb"
 require "./lib/calculatorrouter.rb"
