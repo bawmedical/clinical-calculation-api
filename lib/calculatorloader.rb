@@ -7,10 +7,10 @@ class CalculatorLoaderContext < ClassLoaderContext
 
   FIELD_PREFIX = :field_
 
-  def initialize(classloader, fields = {})
+  def initialize(classloader)
     super classloader
 
-    @fields = fields
+    @fields = {}
   end
 
   def fields=(fields)
