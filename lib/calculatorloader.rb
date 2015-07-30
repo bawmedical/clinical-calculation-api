@@ -76,7 +76,7 @@ class CalculatorLoader < ClassLoader
   def load_calculators(directory)
     logger.debug "Loading calculators from `#{directory}'"
 
-    directories = Dir.glob(File.join(directory, "*")).select do |filename|
+    Dir.glob(File.join(directory, "*")).each do |filename|
       if File.directory? filename
         load_directory filename
       end
