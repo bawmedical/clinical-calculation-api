@@ -12,7 +12,7 @@ name :cha2ds2
 
 execute do
 	raise FieldError.new("age", "age must be a number") if !field_age.is_float?
-	raise FieldError.new("sex", "sex must be 'M' or 'F'") if !(field_sex == "M" || field_age == "F")
+	raise FieldError.new("sex", "sex must be 'M' or 'F'") if !(field_sex.upcase == "M" || field_age.upcase == "F")
 
 	congestive_heart_failure_history = get_bool("congestive_heart_failure_history")
 	hypertension_history = get_bool("hypertension_history")

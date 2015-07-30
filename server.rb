@@ -29,5 +29,4 @@ if __FILE__ == $0
     logger.error "Error: #{error.message}"
     error.backtrace.each { |line| logger.error line }
   end
-
 end

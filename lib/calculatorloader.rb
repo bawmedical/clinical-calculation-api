@@ -10,7 +10,7 @@ class CalculatorLoaderContext < ClassLoaderContext
   def initialize(classloader, fields = {})
     super classloader
 
-    self.fields = fields
+    @fields = fields
   end
 
   def fields=(fields)
@@ -63,6 +63,8 @@ class CalculatorLoader < ClassLoader
 
   def initialize
     super CalculatorLoaderContext
+
+    @file_dates = {}
   end
 
   def load_directory(directory)
@@ -74,11 +76,9 @@ class CalculatorLoader < ClassLoader
   def load_calculators(directory)
     logger.debug "Loading calculators from `#{directory}'"
 
-    directories = Dir.glob(File.join(directory, "*")).select do |filename|
+    Dir.glob(File.join(directory, "*")).each do |filename|
       if File.directory? filename
         load_directory filename
-      elsif filename.end_with? CALC_EXT
-        load_file filename
       end
     end
   end
@@ -92,12 +92,15 @@ class CalculatorLoader < ClassLoader
       logger.warn "Failed to load `#{filename}'"
     else
       logger.debug "Loaded `#{loaded_file.name}' from `#{filename}'"
+
+      @file_dates[filename] = File.mtime(filename).to_f
     end
 
     loaded_file
   end
 
   def calculators
+    check_file_dates
     loaded_files.values
   end
 
@@ -107,5 +110,19 @@ class CalculatorLoader < ClassLoader
 
   def get_calculator(name)
     calculators.find { |calculator| calculator.name.to_sym == name.to_sym }
+  end
+
+  private
+
+  def check_file_dates
+    @file_dates.each do |filename, date|
+      new_date = File.mtime(filename).to_f
+
+      if date != File.mtime(filename).to_f
+        logger.debug "File `#{filename}' changed"
+
+        load_file filename
+      end
+    end
   end
 end
