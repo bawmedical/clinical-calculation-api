@@ -41,9 +41,11 @@ execute do
   weight_centile = centile_calculator.get_weight_centile sex, age_in_months, weight
   bmi_centile = centile_calculator.get_bmi_centile sex, age_in_months, bmi
 
-  {
-    height_centile: height_centile,
-    weight_centile: weight_centile,
-    bmi_centile: bmi_centile
-  }
+  response = {}
+
+  response[:height_centile] = height_centile unless height_centile.nil?
+  response[:weight_centile] = weight_centile unless weight_centile.nil?
+  response[:bmi_centile] = bmi_centile unless bmi_centile.nil?
+
+  response
 end
