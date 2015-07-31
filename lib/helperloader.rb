@@ -52,7 +52,6 @@ class HelperLoader < ClassLoader
     end
   end
 
-
   def load_file(filename)
     all_helpers = helpers
 
