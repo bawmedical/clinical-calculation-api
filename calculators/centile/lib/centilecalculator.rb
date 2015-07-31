@@ -35,6 +35,7 @@ class CentileCalculator
     # formulae taken from http://www.cdc.gov/growthcharts/percentile_data_files.htm
     # x is the measurement under consideration
     # returns the percentile as a number from 0 to 100
+    # for more information about generating centile values in code, see this blog post: http://www.bawmedical.co.uk/2014/05/10/centiles-doing-them-in-code-part-1/
     l = lms[:l]
     m = lms[:m]
     s = lms[:s]
