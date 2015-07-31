@@ -89,7 +89,7 @@ class CalculatorLoaderContext < ClassLoaderContext
   def respond_to?(symbol, include_private = false)
     if include_private && symbol.start_with?(FIELD_PREFIX)
       fields.include? field_name(symbol, true)
-    elsif helper?(symbol) && @requested_helpers.include?(symbol)
+    elsif include_private && helper?(symbol) && @requested_helpers.include?(symbol)
       true
     else
       super
