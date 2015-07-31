@@ -1,5 +1,5 @@
-name :cha2ds2
-require_helpers :get_field_as_bool, :age
+name :"has-bled"
+require_helpers :get_field_as_bool, :get_field_as_integer
 
 execute do
   hypertension_history = get_field_as_bool :hypertension_history
