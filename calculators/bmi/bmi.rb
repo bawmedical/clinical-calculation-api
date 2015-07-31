@@ -1,11 +1,9 @@
 name :bmi
+require_helpers :get_field_as_float
 
 execute do
-	raise FieldError.new("weight", "weight must be a number") if !field_weight.is_float?
-	raise FieldError.new("height", "height must be a number") if !field_height.is_float?
-
-	weight = field_weight.to_f
-	height = field_height.to_f
+	weight = get_field_as_float :weight
+	height = get_field_as_float :height
 
 	raise FieldError.new("weight", "weight must be greater than zero") if weight <= 0
 	raise FieldError.new("height", "height must be greater than zero") if height <= 0
