@@ -13,6 +13,8 @@ class CalculatorLoaderContext < ClassLoaderContext
     @name = nil
     @execute_block = nil
     @fields = {}
+
+    @requested_helpers = []
   end
 
   def name(name = nil)
@@ -40,6 +42,26 @@ class CalculatorLoaderContext < ClassLoaderContext
     fields.include? field_name(field_name, prefixed)
   end
 
+  def helperloader=(helperloader)
+    @helperloader = helperloader
+  end
+
+  def helperloader
+    @helperloader
+  end
+
+  def helpers
+    @helperloader.nil? ? nil : @helperloader.helpers
+  end
+
+  def helper?(helper_name)
+    @helperloader.has_helper? helper_name
+  end
+
+  def require_helpers(*helper_names)
+    @requested_helpers += helper_names.each { |name| name.to_sym }
+  end
+
   def field_name(name, reverse = false)
     if reverse
       name.to_sym.sub /^#{FIELD_PREFIX.to_s}/, ""
@@ -57,6 +79,8 @@ class CalculatorLoaderContext < ClassLoaderContext
       end
 
       fields[reversed_name]
+    elsif helper?(symbol) && @requested_helpers.include?(symbol)
+      helperloader.get_helper(symbol).call(*arguments)
     else
       super
     end
@@ -65,6 +89,8 @@ class CalculatorLoaderContext < ClassLoaderContext
   def respond_to?(symbol, include_private = false)
     if include_private && symbol.start_with?(FIELD_PREFIX)
       fields.include? field_name(symbol, true)
+    elsif helper?(symbol) && @requested_helpers.include?(symbol)
+      true
     else
       super
     end
@@ -76,8 +102,10 @@ class CalculatorLoader < ClassLoader
 
   CALC_EXT = ".rb"
 
-  def initialize
+  def initialize(helperloader)
     super CalculatorLoaderContext
+
+    @helperloader = helperloader
 
     @file_dates = {}
   end
@@ -128,6 +156,14 @@ class CalculatorLoader < ClassLoader
   end
 
   private
+
+  def get_module(filename, source)
+    mod = @context.new self
+    mod.helperloader = @helperloader
+    mod.instance_eval source, filename
+
+    mod
+  end
 
   def check_file_dates
     @file_dates.each do |filename, date|

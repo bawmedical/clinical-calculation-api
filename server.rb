@@ -18,9 +18,11 @@ if __FILE__ == $0
 
   logger = Logging.logger_for "Server"
 
-  loader = CalculatorLoader.new
+  helper = HelperLoader.new
+  loader = CalculatorLoader.new helper
   router = CalculatorRouter.new loader
 
+  helper.load_helpers "./helpers"
   loader.load_calculators "./calculators"
 
   begin
