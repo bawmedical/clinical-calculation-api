@@ -59,7 +59,10 @@ class CalculatorLoaderContext < ClassLoaderContext
   end
 
   def require_helpers(*helper_names)
-    @requested_helpers += helper_names.each { |name| name.to_sym }
+    @requested_helpers += helper_names.map do |name|
+      raise ServerError.new("invalid helper `#{name}'") unless helper? name
+      name.to_sym
+    end
   end
 
   def field_name(name, reverse = false)
@@ -129,10 +132,17 @@ class CalculatorLoader < ClassLoader
   def load_file(filename)
     logger.debug "Loading file `#{filename}'"
 
-    loaded_file = super
+    loaded_file = nil
+
+    begin
+      loaded_file = super
+    rescue => error
+      logger.error "Error: #{error.message}"
+      error.backtrace.each { |line| logger.error line }
+    end
 
     if loaded_file.nil?
-      logger.warn "Failed to load `#{filename}'"
+      logger.error "Failed to load `#{filename}'"
     else
       logger.debug "Loaded `#{loaded_file.name}' from `#{filename}'"
 
