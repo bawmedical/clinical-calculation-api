@@ -1,19 +1,6 @@
 require "distribution"
 
 class CentileCalculator
-  module Sex
-    MALE = 0
-    FEMALE = 1
-
-    def self.from_s(sex)
-      result = self.constants.find { |name| name.to_s.casecmp(sex.to_s) == 0 || self.const_get(name).to_s.casecmp(sex.to_s) == 0 }
-
-      return nil if result.nil?
-
-      self.const_get(result)
-    end
-  end
-
   def initialize(lms_hash)
     @lms_hash = lms_hash.symbolize_keys_select { |k, v| !k.is_integer? }
   end
@@ -33,16 +20,9 @@ class CentileCalculator
   private
 
   def get_centile(sex, age, measurement, type)
-    case sex
-      when Sex::MALE
-        sex_sym = :male
-      when Sex::FEMALE
-        sex_sym = :female
-      else
-        return nil
-    end
+    return nil unless sex == :male || sex == :female
 
-    types = @lms_hash[sex_sym]
+    types = @lms_hash[sex]
     return nil if !types.include? type
 
     type = types[type]
