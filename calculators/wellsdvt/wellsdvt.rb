@@ -1,27 +1,19 @@
-def get_bool(name)
-  value = send "field_#{name}"
-
-  begin
-    value.to_s.to_bool
-  rescue ArgumentError
-    raise InvalidRequestError, "#{name} must be a boolean (true/false)"
-  end
-end
 name :wellsdvt
+require_helpers :get_field_as_bool
 
 execute do
   ## Boolean checks for Wells' DVT Criteria
 
-  active_cancer = get_bool("active_cancer")
-  bedridden_major_surgery = get_bool("bedridden_major_surgery")
-  calf_swollen = get_bool("calf_swollen")
-  collateral_veins = get_bool("collateral_veins")
-  full_swelling = get_bool("full_swelling")
-  local_tenderness = get_bool("local_tenderness")
-  pitting_edema = get_bool("pitting_edema")
-  immobilized_leg = get_bool("immobilized_leg")
-  previous_dvt = get_bool("previous_dvt")
-  alternate_diagnosis = get_bool("alternate_diagnosis")
+  active_cancer = get_field_as_bool :active_cancer
+  bedridden_major_surgery = get_field_as_bool :bedridden_major_surgery
+  calf_swollen = get_field_as_bool :calf_swollen
+  collateral_veins = get_field_as_bool :collateral_veins
+  full_swelling = get_field_as_bool :full_swelling
+  local_tenderness = get_field_as_bool :local_tenderness
+  pitting_edema = get_field_as_bool :pitting_edema
+  immobilized_leg = get_field_as_bool :immobilized_leg
+  previous_dvt = get_field_as_bool :previous_dvt
+  alternate_diagnosis = get_field_as_bool :alternate_diagnosis
 
   score = 0
   # Active Cancer (Treatment or Pallation within 6 months)
