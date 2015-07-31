@@ -80,7 +80,7 @@ class CalculatorLoaderContext < ClassLoaderContext
 
       fields[reversed_name]
     elsif helper?(symbol) && @requested_helpers.include?(symbol)
-      helperloader.get_helper(symbol).call(*arguments)
+      helperloader.get_helper(symbol).call(self, *arguments)
     else
       super
     end
