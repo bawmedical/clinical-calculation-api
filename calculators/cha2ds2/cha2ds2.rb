@@ -25,6 +25,6 @@ execute do
 	score += 1 if diabetes
 
 	{
-		cha2ds2_vasc_score: score
+		value: score
 	}
 end
