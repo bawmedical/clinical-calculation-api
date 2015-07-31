@@ -42,5 +42,6 @@ def get_field_as_sex(context, field_name, sex_male = :male, sex_female = :female
 end
 
 add_helper_method method(:get_field_as_bool)
+add_helper_method method(:get_field_as_float)
 add_helper_method method(:get_field_as_integer)
 add_helper_method method(:get_field_as_sex)
