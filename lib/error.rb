@@ -10,25 +10,25 @@ class ApiError < StandardError
   end
 
   def to_h
-    { error: code, message: message }
+    { error: code, message: message, error_type: self.class.name }
   end
 end
 
 class InvalidRequestError < ApiError
   def initialize(message = nil)
-    super 400, (message || "Invalid request")
+    super 400, (message || "invalid request")
   end
 end
 
 class NotFoundError < ApiError
   def initialize(message = nil)
-    super 404, (message || "Not found")
+    super 404, (message || "not found")
   end
 end
 
 class ServerError < ApiError
   def initialize(message = nil)
-    super 500, (message || "Server error")
+    super 500, (message || "server error")
   end
 end
 
@@ -50,6 +50,6 @@ end
 
 class NoFieldError < FieldError
   def initialize(field, message = nil)
-    super field, (message || "Missing field `#{field}'")
+    super field, (message || "missing field")
   end
 end
