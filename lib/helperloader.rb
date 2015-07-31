@@ -30,9 +30,28 @@ end
 class HelperLoader < ClassLoader
   include Logging
 
+  HELPER_EXT = ".rb"
+
   def initialize
     super HelperLoaderContext
   end
+
+  def load_directory(directory)
+    logger.debug "Loading directory `#{directory}'"
+
+    Dir.glob(File.join(directory, "*#{HELPER_EXT}")).each { |filename| load_file filename }
+  end
+
+  def load_helpers(directory)
+    logger.debug "Loading helpers from `#{directory}'"
+
+    Dir.glob(File.join(directory, "*")).each do |filename|
+      if File.directory? filename
+        load_directory filename
+      end
+    end
+  end
+
 
   def load_file(filename)
     all_helpers = helpers
