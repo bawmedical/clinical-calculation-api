@@ -45,5 +45,7 @@ execute do
   # Alternative diagnosis to DVT at least as likely
   score -= 2 if alternate_diagnosis
 
-  score
+  {
+    value: score
+  }
 end
