@@ -14,7 +14,7 @@ require "./lib/calculatorrouter.rb"
 if __FILE__ == $0
   CalculatorApp.configure do |app|
     app.set :server_settings, { AccessLog: [] }
-    app.set :base, "0.0.0.0"
+    app.set :bind, "0.0.0.0"
   end
 
   logger = Logging.logger_for "Server"
