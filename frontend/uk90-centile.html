@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Clinical Calculator</title>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+
+    <link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html">Clinical Calculator</a>
+            </div>
+            <div id="navbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="#">DVT</a></li>
+                    <li><a href="#">Diabetes</a></li>
+                    <li class="active"><a href="bmi.html">BMI</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="row">
+        <form class="col-md-offset-4 col-md-4" id="centileform">
+            <h1>Centile</h1>
+            <div class="form-group">
+              <label for="weight">Weight</label>
+
+              <div class="input-group">
+                <input type="number" step="any" id="weight" class="form-control" required autofocus="yes">
+                <div class="input-group-addon">kg</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="height">Height</label>
+
+              <div class="input-group">
+                <input type="number" step="any" id="height" class="form-control" required autofocus="yes">
+                <div class="input-group-addon">m</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="dayofbirth">Day of Birth</label>
+              <input type="number" id="dayofbirth" class="form-control" required autofocus="yes">
+            </div>
+            <div class="form-group">
+              <label for="dayofbirth">Month of Birth</label>
+              <input type="number" id="monthofbirth" class="form-control" required autofocus="yes">
+            </div>
+            <div class="form-group">
+              <label for="dayofbirth">Year of Birth</label>
+              <input type="number" id="yearofbirth" class="form-control" required autofocus="yes">
+            </div>
+            <div class="form-group">
+              <label for="sex">Sex</label>
+              <select id="sex" class="form-control">
+                <option name="male">Male</option>
+                <option name="female">Female</option>
+              </select>
+            </div>
+
+            <button class="btn btn-primary btn-block" type="submit" id="calculatebutton">Calculate</button>
+        </form>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="js/uk90-centile.js"></script>
+</body>
+</html>
