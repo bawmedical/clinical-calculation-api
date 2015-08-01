@@ -1,3 +1,23 @@
+function showAlert(container, type) {
+  var div = document.createElement("div");
+
+  div.class = "alert alert-" + type + " alert-dismissible";
+  div.role = "alert";
+
+  var button = document.createElement("button");
+  button.type = "button";
+  button.class = "close";
+  button.setAttribute("data-dismiss", "alert");
+
+  var closeSpan = document.createElement("span");
+  closeSpan.innerHTML = "&times;";
+
+  div.appendChild(button);
+  button.appendChild(closeSpan);
+
+  container.appendChild(div);
+}
+
 $(document).ready(function() {
   var $centileform     = $("#centileform")
       $weight          = $("#weight"),
@@ -23,7 +43,7 @@ $(document).ready(function() {
       year_of_birth: $yearofbirth.val(),
       sex: $sex.val()
     }, function(response) {
-      console.log(response);
+
     });
 
     return false;
