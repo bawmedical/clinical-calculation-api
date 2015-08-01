@@ -1,4 +1,4 @@
-name :"has-bled"
+name :hasbled
 require_helpers :get_field_as_bool, :get_field_as_integer
 
 execute do
