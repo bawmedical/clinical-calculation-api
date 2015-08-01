@@ -9,7 +9,7 @@ execute do
 	raise FieldError.new("height", "height must be greater than zero") if height <= 0
 
 	{
-		value: ((weight * height) / 3600) ** 0.5,
+		value: ((weight * (height * 100)) / 3600) ** 0.5,
 		units: "m^2"
 	}
 end

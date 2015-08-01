@@ -24,10 +24,10 @@ class CalculatorApp < Sinatra::Base
     self.class.instance_variable_get("@router")
   end
 
-  post "/:calculator" do
+  get "/:calculator" do
     calculator_name = params[:calculator]
 
-    fields = request.POST.symbolize_keys
+    fields = request.GET.symbolize_keys
 
     logger.debug "Requested calculator `#{calculator_name}' with fields `#{fields.keys}'"
 
@@ -40,6 +40,11 @@ class CalculatorApp < Sinatra::Base
     end
 
     response.merge!({ request_fields: fields })
+
+    if request.GET.include?("jsonp_callback") && !request.GET["jsonp_callback"].empty?
+      content_type :js
+      return "#{request.GET["jsonp_callback"]}(#{response.to_json})"
+    end
 
     content_type :json
     response.to_json
