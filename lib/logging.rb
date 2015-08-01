@@ -32,33 +32,27 @@ module Logging
 
   class LogFormatter < Logger::Formatter
     def call(severity, time, progname, msg)
-      color = get_color severity
+      color = case severity
+              when 'DEBUG' then :light_blue
+              when 'WARN'  then :magenta
+              when 'INFO'  then :cyan
+              when 'ERROR' then :light_red
+              when 'FATAL' then :light_red
+              else
+                :default
+              end
 
       possible_colors = String.color_codes.keys.delete_if do |sym|
-        sym.include?(:black) || sym.to_s.include?(:default)
+        sym.include?(:black) || sym.include?(:default)
       end
 
       progname_color = possible_colors[progname.hash % possible_colors.length]
 
       time = time.strftime '%H:%M:%S'
       colored_severity = severity.colorize color
-      colored_progname = progname.zolorize progname_color
+      colored_progname = progname.colorize progname_color
 
       "#{time} [#{colored_severity}] [#{colored_progname}]: #{msg}\n"
-    end
-  end
-
-  private
-
-  def get_color(severity)
-    case severity
-    when 'DEBUG' then :light_blue
-    when 'WARN'  then :magenta
-    when 'INFO'  then :cyan
-    when 'ERROR' then :light_red
-    when 'FATAL' then :light_red
-    else
-      :default
     end
   end
 end
