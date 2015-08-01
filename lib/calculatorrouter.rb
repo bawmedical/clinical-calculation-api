@@ -1,4 +1,4 @@
-require_relative "./error.rb"
+require_relative './error.rb'
 
 class CalculatorRouter
   include Logging
@@ -7,23 +7,25 @@ class CalculatorRouter
     @loader = loader
   end
 
+  def call_calculator(calculator_name, fields)
+    return NotFoundError.new unless @loader.has_calculator? calculator_name
+
+    calculator = @loader.get_calculator calculator_name
+    calculator.fields = fields
+    response = calculator.call
+    calculator.fields = nil
+
+    response
+  end
+
   def handle_request(calculator_name, fields)
-    begin
-      return NotFoundError.new unless @loader.has_calculator? calculator_name
+    call_calculator calculator_name, fields
+  rescue ApiError => error
+    error
+  rescue => error
+    logger.error "Error: #{error.message}"
+    error.backtrace.each { |line| logger.error line }
 
-      calculator = @loader.get_calculator calculator_name
-      calculator.fields = fields
-      response = calculator.call
-      calculator.fields = nil
-
-      response
-    rescue ApiError => error
-      error
-    rescue => error
-      logger.error "Error: #{error.message}"
-      error.backtrace.each { |line| logger.error line }
-
-      ServerError.new
-    end
+    ServerError.new
   end
 end

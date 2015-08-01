@@ -1,11 +1,11 @@
-require "sinatra/base"
-require "json"
+require 'sinatra/base'
+require 'json'
 
-require_relative "./logging.rb"
-require_relative "./error.rb"
+require_relative './logging.rb'
+require_relative './error.rb'
 
-require_relative "./calculatorrouter.rb"
-require_relative "./calculatorloader.rb"
+require_relative './calculatorrouter.rb'
+require_relative './calculatorloader.rb'
 
 class CalculatorApp < Sinatra::Base
   include Logging
@@ -13,7 +13,7 @@ class CalculatorApp < Sinatra::Base
   def self.setup(router)
     return self if defined? @router
 
-    logger.debug "Setting up calculator app"
+    logger.debug 'Setting up calculator app'
 
     @router = router
 
@@ -21,15 +21,15 @@ class CalculatorApp < Sinatra::Base
   end
 
   def router
-    self.class.instance_variable_get("@router")
+    self.class.instance_variable_get '@router'
   end
 
-  get "/:calculator" do
+  get '/:calculator' do
     calculator_name = params[:calculator]
 
     fields = request.GET.symbolize_keys
 
-    logger.debug "Requested calculator `#{calculator_name}' with fields `#{fields.keys}'"
+    logger.debug "Requested calculator `#{calculator_name}'"
 
     response = router.handle_request(calculator_name, fields)
 
@@ -39,11 +39,11 @@ class CalculatorApp < Sinatra::Base
       response = { result: response }
     end
 
-    response.merge!({ request_fields: fields })
+    response.merge! request_fields: fields
 
-    if request.GET.include?("jsonp_callback") && !request.GET["jsonp_callback"].empty?
+    if fields.include?(:jsonp_callback) && fields[:jsonp_callback].empty?
       content_type :js
-      return "#{request.GET["jsonp_callback"]}(#{response.to_json})"
+      return "#{request.GET['jsonp_callback']}(#{response.to_json})"
     end
 
     content_type :json

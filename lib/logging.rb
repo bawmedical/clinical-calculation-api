@@ -1,5 +1,5 @@
-require "logger"
-require "colorize"
+require 'logger'
+require 'colorize'
 
 module Logging
   @loggers = {}
@@ -26,31 +26,39 @@ module Logging
 
   def self.included(base)
     base.define_singleton_method(:logger) do
-      @logger ||= Logging.logger_for self.name
+      @logger ||= Logging.logger_for name
     end
   end
 
   class LogFormatter < Logger::Formatter
     def call(severity, time, progname, msg)
-      color = :default
+      color = get_color severity
 
-      case severity
-        when "DEBUG"
-          color = :light_blue
-        when "WARN"
-          color = :magenta
-        when "INFO"
-          color = :cyan
-        when "ERROR"
-          color = :light_red
-        when "FATAL"
-          color = :light_red
+      possible_colors = String.color_codes.keys.delete_if do |sym|
+        sym.include?(:black) || sym.to_s.include?(:default)
       end
 
-      possible_colors = String.color_codes.keys.delete_if { |sym| sym.to_s.include?("black") || sym.to_s.include?("default") }
       progname_color = possible_colors[progname.hash % possible_colors.length]
 
-      "#{time.strftime("%H:%M:%S")} [#{severity.colorize(color)}] [#{progname.colorize(progname_color)}]: #{msg}\n"
+      time = time.strftime '%H:%M:%S'
+      colored_severity = severity.colorize color
+      colored_progname = progname.zolorize progname_color
+
+      "#{time} [#{colored_severity}] [#{colored_progname}]: #{msg}\n"
+    end
+  end
+
+  private
+
+  def get_color(severity)
+    case severity
+    when 'DEBUG' then :light_blue
+    when 'WARN'  then :magenta
+    when 'INFO'  then :cyan
+    when 'ERROR' then :light_red
+    when 'FATAL' then :light_red
+    else
+      :default
     end
   end
 end
