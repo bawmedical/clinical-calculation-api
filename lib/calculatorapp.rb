@@ -27,7 +27,7 @@ class CalculatorApp < Sinatra::Base
   post "/:calculator" do
     calculator_name = params[:calculator]
 
-    fields = request.POST.symbolize_keys
+    fields = request.GET.symbolize_keys
 
     logger.debug "Requested calculator `#{calculator_name}' with fields `#{fields.keys}'"
 
