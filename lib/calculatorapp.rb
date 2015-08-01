@@ -24,7 +24,7 @@ class CalculatorApp < Sinatra::Base
     self.class.instance_variable_get("@router")
   end
 
-  post "/:calculator" do
+  get "/:calculator" do
     calculator_name = params[:calculator]
 
     fields = request.GET.symbolize_keys
