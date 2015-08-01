@@ -79,3 +79,14 @@ body {
 	background-image: url("../images/bmibanner.jpg");
 	height:100px;
 }
+
+.container {
+  width: 970px;
+  max-width: none !important;
+}
+
+body,
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+  min-width: 970px;
+}
