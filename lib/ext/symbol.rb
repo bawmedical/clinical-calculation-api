@@ -10,4 +10,8 @@ class Symbol
   def sub(pattern, replacement)
     self.to_s.sub(pattern, replacement.to_s).to_sym
   end
+
+  def include?(substr)
+    self.to_s.include? substr.to_s
+  end
 end
