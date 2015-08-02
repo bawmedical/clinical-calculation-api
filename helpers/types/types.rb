@@ -5,17 +5,17 @@ end
 def get_field_as_bool(context, field_name)
   value = get_field context, field_name
 
-  begin
-    value.to_s.to_bool
-  rescue ArgumentError
-    raise FieldError.new field_name.to_s, 'must be a boolean (true/false)'
+  if value.bool?
+    value.to_bool
+  else
+    fail FieldError.new field_name.to_s, 'must be a boolean (true/false)'
   end
 end
 
 def get_field_as_float(context, field_name)
   value = get_field context, field_name
 
-  if value.is_float?
+  if value.float?
     Float(value)
   else
     fail FieldError.new field_name.to_s, 'must be a float'
@@ -25,7 +25,7 @@ end
 def get_field_as_integer(context, field_name)
   value = get_field context, field_name
 
-  if value.is_integer?
+  if value.integer?
     Integer(value)
   else
     fail FieldError.new field_name.to_s, 'must be an integer'

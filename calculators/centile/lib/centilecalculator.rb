@@ -2,7 +2,7 @@ require "distribution"
 
 class CentileCalculator
   def initialize(lms_hash)
-    @lms_hash = lms_hash.symbolize_keys_select { |k, v| !k.is_integer? }
+    @lms_hash = lms_hash.symbolize_keys_select { |k, v| !k.integer? }
   end
 
   def get_height_centile(sex, age, measurement)
