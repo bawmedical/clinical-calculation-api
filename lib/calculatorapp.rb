@@ -41,7 +41,7 @@ class CalculatorApp < Sinatra::Base
 
     response.merge! request_fields: fields
 
-    if fields.include?(:jsonp_callback) && fields[:jsonp_callback].empty?
+    if fields.include?(:jsonp_callback) && !fields[:jsonp_callback].empty?
       content_type :js
       return "#{request.GET['jsonp_callback']}(#{response.to_json})"
     end
