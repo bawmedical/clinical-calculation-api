@@ -9,7 +9,7 @@ execute do
   fail FieldError.new('height', 'must be greater than zero') if height <= 0
 
   {
-    value: weight / (height ** 2),
-    units: "kg/m^2"
+    value: weight / (height**2),
+    units: 'kg/m^2'
   }
 end
