@@ -31,16 +31,19 @@ module Logging
   end
 
   class LogFormatter < Logger::Formatter
+    def self.get_color(severity)
+      case severity
+      when 'DEBUG' then :light_blue
+      when 'WARN'  then :magenta
+      when 'INFO'  then :cyan
+      when 'ERROR' then :light_red
+      when 'FATAL' then :light_red
+      else :default
+      end
+    end
+
     def call(severity, time, progname, msg)
-      color = case severity
-              when 'DEBUG' then :light_blue
-              when 'WARN'  then :magenta
-              when 'INFO'  then :cyan
-              when 'ERROR' then :light_red
-              when 'FATAL' then :light_red
-              else
-                :default
-              end
+      color = LogFormatter.get_color severity
 
       possible_colors = String.color_codes.keys.delete_if do |sym|
         sym.include?(:black) || sym.include?(:default)
