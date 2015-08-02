@@ -52,4 +52,8 @@ class Hash
   def symbolize_keys!
     symbolize_keys_select { true }
   end
+
+  def length
+    keys.length
+  end
 end
