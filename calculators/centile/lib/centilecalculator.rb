@@ -23,10 +23,10 @@ class CentileCalculator
     return nil unless sex == :male || sex == :female
 
     types = @lms_hash[sex]
-    return nil if !types.include? type
+    return nil unless types.include? type
 
     type = types[type]
-    return nil if !type.include? age.to_s
+    return nil unless type.include? age.to_s
 
     lms_to_centile measurement, type[age.to_s]
   end
