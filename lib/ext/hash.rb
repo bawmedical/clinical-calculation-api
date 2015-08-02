@@ -1,55 +1,48 @@
 class Hash
-  def symbolize_keys_select(&block)
-    result = {}
+  def deep_clone(clone_any = false)
+    cloned = {}
 
-    self.keys.each do |key|
-      if !key.respond_to? :to_sym
-        result[key] = self[key]
-        next
-      end
-
-      use_key = key.to_sym
-
-      if !block.call key, self[key]
-        use_key = key
-      end
-
-      if self[key].is_a? Hash
-        result[use_key] = self[key].symbolize_keys_select &block
+    each do |key, value|
+      if value.is_a? Hash
+        cloned[key] = value.deep_clone
+      elsif clone_any && value.respond_to?(:clone)
+        cloned[key] = value.clone
       else
-        result[use_key] = self[key]
+        cloned[key] = value
       end
     end
 
-    result
-  end
-
-  def symbolize_keys
-    symbolize_keys_select { true }
+    cloned
   end
 
   def symbolize_keys_select!(&block)
-    self.keys.each do |key|
-      next if !key.respond_to? :to_sym
+    keys.each do |key|
+      next unless key.respond_to? :to_sym
 
       symkey = key.to_sym
 
-      next if !block.call key, self[key]
+      next unless block.call key, self[key]
 
-      if !key.is_a? Symbol
+      unless key.is_a? Symbol
         self[symkey] = self[key]
-        self.delete key
+        delete key
       end
 
-      if self[symkey].is_a? Hash
-        self[symkey].symbolize_keys_select! &block
-      end
+      self[symkey].symbolize_keys_select!(&block) if self[symkey].is_a? Hash
     end
 
     self
   end
 
   def symbolize_keys!
+    symbolize_keys_select { true }
+  end
+
+  def symbolize_keys_select(&block)
+    deep_clone.symbolize_keys_select!(&block)
+  end
+
+  def symbolize_keys
     symbolize_keys_select { true }
   end
 
