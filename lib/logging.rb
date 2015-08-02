@@ -1,4 +1,5 @@
 require 'logger'
+require 'zlib'
 require 'colorize'
 
 module Logging
@@ -49,7 +50,7 @@ module Logging
         sym.include?(:black) || sym.include?(:default)
       end
 
-      progname_color = possible_colors[progname.hash % possible_colors.length]
+      progname_color = possible_colors[Zlib.crc32(progname) % possible_colors.length]
 
       time = time.strftime '%H:%M:%S'
       colored_severity = severity.colorize color
