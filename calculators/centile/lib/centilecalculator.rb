@@ -1,8 +1,8 @@
-require "distribution"
+require 'distribution'
 
 class CentileCalculator
   def initialize(lms_hash)
-    @lms_hash = lms_hash.symbolize_keys_select { |k, v| !k.integer? }
+    @lms_hash = lms_hash.symbolize_keys_select { |k, _v| !k.integer? }
   end
 
   def get_height_centile(sex, age, measurement)
@@ -43,9 +43,9 @@ class CentileCalculator
     if l == 0
       z = log(x / m) / s
     else
-      z = (((x / m) ** l) - 1) / (l * s)
+      z = (((x / m)**l) - 1) / (l * s)
     end
 
-    Distribution::Normal::cdf(z) * 100
+    Distribution::Normal.cdf(z) * 100
   end
 end
