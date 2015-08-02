@@ -13,7 +13,7 @@ presents a range of clinical calculations as a REST API, avoiding the need for t
 * any variable that you add to the calculator prefixed by `field_` will automagically become a field that the API will accept as a request field.
 * validation is also built in to each new calculation automatically, the server will respond with a meaningful error message telling you which fields are missing. In this way the API is semi-self-documenting.
 * endpoints are also dynamically named according to the `name:<yourcalculatorname>` property in your calculator's Ruby file, (or the default is to name the endpoint after the name of the calculator's Ruby file).
-* endpoints are then available at [baseURL]/<yourcalculatorname>
+* endpoints are then available at `[baseURL]/<yourcalculatorname>`
 
 ###installation
 
@@ -27,7 +27,7 @@ presents a range of clinical calculations as a REST API, avoiding the need for t
 ###usage
 
 1. the server will be available at `localhost:4567` (Sinatra's default port)
-6. endpoints are at [baseURL]/<calculatorname> - for example the centile endpoint is at [baseURL]/centile
+6. endpoints are at `[baseURL]/<calculatorname>` - for example the centile endpoint is at `[baseURL]/centile`
 7. The simplest way to play with the API is to use a REST client such as Postman https://www.getpostman.com/ to send GET requests with the data fields as part of the URL. We are aware that strict HTTP verb usage would suggest a POST with parameters, but we had some minor teething troubles with deployment of this to a remote server and therefore temporarily switched to GET+?urlparams.
 
 ###HTML5 client
