@@ -13,7 +13,7 @@ execute do
   # Retrieve fields from request
   weight = get_field_as_float :weight_in_kg
   height = get_field_as_float :height_in_m
-  date_of_birth = get_fields_as_date :year_of_birth, :month_of_birth, :day_of_birth
+  date_of_birth = get_fields_as_date :day_of_birth, :month_of_birth, :year_of_birth
   sex = get_field_as_sex :sex
 
   today = Date.today

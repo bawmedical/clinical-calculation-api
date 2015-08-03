@@ -41,15 +41,24 @@ def get_field_as_sex(context, field_name)
   fail FieldError.new field_name.to_s, 'must be a sex (male/female)'
 end
 
-def get_fields_as_date(context, day_field, month_field, year_field)
-  day_value = get_field_as_integer context, day_field
-  month_value = get_field_as_integer context, month_field
+def get_fields_as_date(context, year_field, month_field, day_field)
   year_value = get_field_as_integer context, year_field
+  month_value = get_field_as_integer context, month_field
+  day_value = get_field_as_integer context, day_field
+
+  valid_year = year_value > 0
+  valid_month = Date.valid_month? month_value
+  days_in_month = Date.days_in_month year_value, month_value
+  valid_day = Date.valid_day? year_value, month_value, day_value
+
+  fail FieldError.new year_field, 'must be greater than zero' unless valid_year
+  fail FieldError.new month_field, 'must be in the range 1 to 12' unless valid_month
+  fail FieldError.new day_field, "must be in the range 1 to #{days_in_month}" unless valid_day
 
   begin
     Date.new year_value, month_value, day_value
   rescue ArgumentError
-    fail FieldError.new [ day_field, month_field, year_field ], 'invalid date'
+    raise InternalServerError, 'invalid date'
   end
 end
 
