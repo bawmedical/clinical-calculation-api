@@ -1,10 +1,10 @@
 require 'date'
 require 'json'
 
+require_relative './lib/centilecalculator.rb'
+
 name :centile
 require_helpers :get_field_as_float, :get_field_as_integer, :months_between, :get_field_as_sex
-
-require_relative './lib/centilecalculator.rb'
 
 centile_data_path = File.expand_path('./data/lmsdata.json', File.dirname(__FILE__))
 
