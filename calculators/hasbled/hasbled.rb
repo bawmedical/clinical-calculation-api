@@ -49,7 +49,7 @@ execute do
   score += 1 if stroke_history
 
   # Prior Major Bleeding or Predisposition to Bleeding
-  score += 1 if prior_major_or_predisposition_to_bleeding
+  score += 1 if prior_major_bleeding || predisposition_to_bleeding
 
   # Labile INR ((Unstable/high INRs), Time in Therapeutic Range < 60%)
   score += 1 if labile_inr
