@@ -1,6 +1,7 @@
 # To-do
  - [ ] Implement msoaobesity calculator (**high priority**)
  - [ ] Add documentation endpoint.
+ - [ ] Add configuration file
     - [ ] Add documentation method to [CalculatorLoaderContext][CalculatorLoaderContext], allowing request fields to be documented.
     - [ ] Add special documentation endpoint to access documentation for different endpoints.
  - [ ] Implement QRISK2 calculation (C implementation can be found [here][QRISK2-Software]).
