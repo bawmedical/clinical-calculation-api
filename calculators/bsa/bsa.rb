@@ -12,8 +12,5 @@ execute do
   fail FieldError.new('weight', 'must be greater than zero') if weight <= 0
   fail FieldError.new('height', 'must be greater than zero') if height <= 0
 
-  {
-    value: ((weight * (height * 100)) / 3600)**0.5,
-    units: 'm^2'
-  }
+  { value: ((weight * (height * 100)) / 3600)**0.5, units: 'm^2' }
 end
