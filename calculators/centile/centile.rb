@@ -1,5 +1,5 @@
-require 'date'
 require 'json'
+require 'date'
 
 require_relative './lib/centilecalculator.rb'
 
