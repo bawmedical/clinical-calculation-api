@@ -41,7 +41,20 @@ def get_field_as_sex(context, field_name)
   fail FieldError.new field_name.to_s, 'must be a sex (male/female)'
 end
 
+def get_fields_as_date(context, day_field, month_field, year_field)
+  day_value = get_field_as_integer context, day_field
+  month_value = get_field_as_integer context, month_field
+  year_value = get_field_as_integer context, year_field
+
+  begin
+    Date.new year_value, month_value, day_value
+  rescue ArgumentError
+    fail FieldError.new [ day_field, month_field, year_field ], 'invalid date'
+  end
+end
+
 add_helper_method method(:get_field_as_bool)
 add_helper_method method(:get_field_as_float)
 add_helper_method method(:get_field_as_integer)
 add_helper_method method(:get_field_as_sex)
+add_helper_method method(:get_fields_as_date)
