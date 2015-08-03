@@ -51,7 +51,7 @@ execute do
   # Prior Major Bleeding or Predisposition to Bleeding
   score += 1 if prior_major_bleeding || predisposition_to_bleeding
 
-  # Labile INR ((Unstable/high INRs), Time in Therapeutic Range < 60%)
+  # Labile INR ((Unstable/high INRs), Time in Therapeutic Range < 60%)
   score += 1 if labile_inr
 
   # Age > 65
