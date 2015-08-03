@@ -19,23 +19,25 @@ class Hash
     keys.each do |key|
       next unless key.respond_to? :to_sym
 
-      symkey = key.to_sym
+      curkey = key.to_sym
 
-      next unless block.call key, self[key]
-
-      unless key.is_a? Symbol
-        self[symkey] = self[key]
-        delete key
+      unless key.is_a?(Symbol)
+        if block.call(key, self[key])
+          self[curkey] = self[key]
+          delete key
+        else
+          curkey = key
+        end
       end
 
-      self[symkey].symbolize_keys_select!(&block) if self[symkey].is_a? Hash
+      self[curkey].symbolize_keys_select!(&block) if self[curkey].is_a? Hash
     end
 
     self
   end
 
   def symbolize_keys!
-    symbolize_keys_select { true }
+    symbolize_keys_select! { true }
   end
 
   def symbolize_keys_select(&block)
