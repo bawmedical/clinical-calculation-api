@@ -1,6 +1,9 @@
 Style/Documentation:
   Enabled: false
 
+Style/EmptyLinesAroundBlockBody:
+  Enabled: false
+
 Metrics/LineLength:
   Max: 120
 
