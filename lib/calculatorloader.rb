@@ -17,6 +17,10 @@ class CalculatorLoaderContext < ClassLoaderContext
     @requested_helpers = []
   end
 
+  def logger_name
+    "Calculator (#{name})"
+  end
+
   def name(name = nil)
     @name = name unless name.nil?
     @name
