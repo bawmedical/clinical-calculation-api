@@ -1,6 +1,7 @@
 # To-do
  - [ ] Implement msoaobesity calculator (**high priority**)
  - [ ] Write unit tests
+    - [ ] Add `.travis.yml` for Travis CI
  - [ ] Fix all RuboCop offences
  - [ ] Add configuration file
  - [ ] Add documentation endpoint
