@@ -1,6 +1,7 @@
 # To-do
  - [ ] Implement msoaobesity calculator (**high priority**)
  - [ ] Write unit tests
+ - [ ] Fix all RuboCop offences
  - [ ] Add configuration file
  - [ ] Add documentation endpoint
     - [ ] Add documentation method to [CalculatorLoaderContext][CalculatorLoaderContext], allowing request fields to be documented
