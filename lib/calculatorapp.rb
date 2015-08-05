@@ -49,4 +49,19 @@ class CalculatorApp < Sinatra::Base
     content_type :json
     response.to_json
   end
+
+  not_found do
+    fields = request.GET.symbolize_keys
+    response = NotFoundError.new.to_h
+
+    response.merge! request_fields: fields
+
+    if fields.include?(:jsonp_callback) && !fields[:jsonp_callback].empty?
+      content_type :js
+      next "#{request.GET['jsonp_callback']}(#{response.to_json})"
+    end
+
+    content_type :json
+    response.to_json
+  end
 end

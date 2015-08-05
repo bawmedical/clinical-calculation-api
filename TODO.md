@@ -3,6 +3,8 @@
  - [ ] Write unit tests
     - [ ] Add `.travis.yml` for Travis CI
  - [ ] Fix all RuboCop offences
+ - [ ] Find a better way to handle `not_found`
+    - Possibly abstract `response` generation to it's own method
  - [ ] Add configuration file
  - [ ] Add documentation endpoint
     - [ ] Add documentation method to [CalculatorLoaderContext][CalculatorLoaderContext], allowing request fields to be documented
