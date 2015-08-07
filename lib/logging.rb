@@ -4,6 +4,7 @@ require 'colorize'
 
 module Logging
   @loggers = {}
+  @level = Logger::DEBUG
 
   def logger
     @logger ||= Logging.logger_for(self.respond_to?(:logger_name) ? self.logger_name : self.class.name)
@@ -20,9 +21,14 @@ module Logging
 
   def self.create_logger_for(class_name)
     logger = Logger.new STDERR
+    logger.level = @level
     logger.progname = class_name
     logger.formatter = LogFormatter.new
     logger
+  end
+
+  def self.level=(level)
+    @level = level
   end
 
   def self.included(base)
