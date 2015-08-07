@@ -3,6 +3,7 @@ require "bundler/setup"
 
 require "./lib/ext/date.rb"
 require "./lib/ext/hash.rb"
+require "./lib/ext/module.rb"
 require "./lib/ext/string.rb"
 require "./lib/ext/symbol.rb"
 
