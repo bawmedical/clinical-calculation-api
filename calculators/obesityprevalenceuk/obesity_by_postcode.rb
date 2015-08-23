@@ -5,6 +5,7 @@ name :obesity_by_postcode
 require_helpers :read_json, :get_field
 
 @electoral_ward_hash = read_json('./data/obesity&excess_weight_by_electoral_ward.json', __FILE__).symbolize_keys_select { |k, _v| !k.integer? }
+@local_authority_hash = read_json('./data/obesity&excess_weight_by_LA.json', __FILE__).symbolize_keys_select { |k, _v| !k.integer? }
 
 execute do 
 
@@ -16,6 +17,12 @@ execute do
 
   uri = URI('http://mapit.mysociety.org/postcode/'+postcode_search)
 
-  postcode_data = Net::HTTP.get uri
-  ward = postcode_data["areas"].each {|k,v| v["name"] if v["type_name"]=="Metropolitan district ward"}
+  postcode_data = JSON.parse (Net::HTTP.get uri)
+
+  response = {}
+  postcode_data["areas"].each { |k,v| response[:ward] = v["name"] if v["type_name"].match /ward/ }
+  # postcode_data["areas"].each { |k,v| response[:local_authority] = v["name"] if v["type_name"]=="what goes here?" } tricky...
+
+  response[:obesity_by_ward] = @electoral_ward_hash[response[:ward].to_sym]
+  response
 end
