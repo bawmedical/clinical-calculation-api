@@ -1,17 +1,17 @@
 require "rubygems"
 require "bundler/setup"
 
-require "./lib/ext/date.rb"
-require "./lib/ext/hash.rb"
-require "./lib/ext/module.rb"
-require "./lib/ext/string.rb"
-require "./lib/ext/symbol.rb"
+require_relative "./lib/ext/date.rb"
+require_relative "./lib/ext/hash.rb"
+require_relative "./lib/ext/module.rb"
+require_relative "./lib/ext/string.rb"
+require_relative "./lib/ext/symbol.rb"
 
-require "./lib/helperloader.rb"
+require_relative "./lib/helperloader.rb"
 
-require "./lib/calculatorapp.rb"
-require "./lib/calculatorloader.rb"
-require "./lib/calculatorrouter.rb"
+require_relative "./lib/calculatorapp.rb"
+require_relative "./lib/calculatorloader.rb"
+require_relative "./lib/calculatorrouter.rb"
 
 # HACK: We should find a better way to handle `require'ing this file
 
