@@ -9,6 +9,19 @@ class CalculatorLoader < FileLoader
     super CalculatorContext, [helperloader]
   end
 
+  def load_file(filename)
+    loaded_file = super
+
+    if loaded_file.respond_to?(:name) && !loaded_file.name.nil?
+      logger.debug "Loaded calculator `#{loaded_file.name}' from `#{filename}'"
+    else
+      logger.error "Invalid calculator in `#{filename}' (missing name)"
+      loaded_files.delete filename
+    end
+
+    loaded_file
+  end
+
   def calculators
     loaded_files.values
   end
