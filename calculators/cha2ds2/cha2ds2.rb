@@ -1,5 +1,4 @@
 name :cha2ds2
-require_helpers :get_field_as_integer, :get_field_as_sex, :get_field_as_bool
 
 # Define calculation method
 execute do

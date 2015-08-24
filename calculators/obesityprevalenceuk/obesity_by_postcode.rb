@@ -2,12 +2,11 @@ require 'net/http'
 require 'json'
 
 name :obesity_by_postcode
-require_helpers :read_json, :get_field
 
 @electoral_ward_hash = read_json('./data/obesity&excess_weight_by_electoral_ward.json', __FILE__).symbolize_keys_select { |k, _v| !k.integer? }
 @local_authority_hash = read_json('./data/obesity&excess_weight_by_LA.json', __FILE__).symbolize_keys_select { |k, _v| !k.integer? }
 
-execute do 
+execute do
 
   # Retrieve fields from request
   postcode_search = get_field :postcode_search

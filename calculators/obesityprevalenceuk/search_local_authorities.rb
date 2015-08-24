@@ -1,11 +1,10 @@
 require 'json'
 
 name :search_local_authorities
-require_helpers :read_json, :get_field
 
 @local_authority_hash = read_json('./data/obesity&excess_weight_by_LA.json', __FILE__).symbolize_keys_select { |k, _v| !k.integer? }
 
-execute do 
+execute do
 
   # Retrieve fields from request
   search_string = get_field :search

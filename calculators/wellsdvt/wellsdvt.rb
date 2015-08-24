@@ -1,5 +1,4 @@
 name :wellsdvt
-require_helpers :get_field_as_bool
 
 # Define calculation method
 execute do

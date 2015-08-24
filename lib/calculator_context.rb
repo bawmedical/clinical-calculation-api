@@ -10,7 +10,6 @@ class CalculatorContext
     @execute_block = nil
     @fields = {}
 
-    @requested_helpers = []
     @helperloader = helperloader
   end
 
@@ -59,13 +58,6 @@ class CalculatorContext
     @helperloader.has_helper? helper_name
   end
 
-  def require_helpers(*helper_names)
-    @requested_helpers += helper_names.map do |name|
-      raise ServerError.new("invalid helper `#{name}'") unless helper? name
-      name.to_sym
-    end
-  end
-
   def field_name(name, reverse = false)
     if reverse
       name.to_sym.sub /^#{FIELD_PREFIX.to_s}/, ""
@@ -83,7 +75,7 @@ class CalculatorContext
       end
 
       fields[reversed_name]
-    elsif helper?(symbol) && @requested_helpers.include?(symbol)
+    elsif helper?(symbol)
       helperloader.get_helper(symbol).call(self, *arguments)
     else
       super
@@ -93,7 +85,7 @@ class CalculatorContext
   def respond_to?(symbol, include_private = false)
     if include_private && symbol.start_with?(FIELD_PREFIX)
       fields.include? field_name(symbol, true)
-    elsif include_private && helper?(symbol) && @requested_helpers.include?(symbol)
+    elsif include_private && helper?(symbol)
       true
     else
       super

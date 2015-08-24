@@ -1,5 +1,4 @@
 name :bsa
-require_helpers :get_field_as_float
 
 # Define calculation method
 execute do

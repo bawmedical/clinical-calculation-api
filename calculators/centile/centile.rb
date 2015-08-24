@@ -2,7 +2,6 @@ require 'json'
 require_relative './lib/centilecalculator.rb'
 
 name :centile
-require_helpers :read_json, :get_field_as_float, :get_fields_as_date, :get_field_as_sex, :months_between
 
 # Load lmsdata from file
 centile_calculator = CentileCalculator.new read_json('./data/lmsdata.json', __FILE__)

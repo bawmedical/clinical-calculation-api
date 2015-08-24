@@ -1,5 +1,4 @@
 name :hasbled
-require_helpers :get_field_as_bool, :get_field_as_integer
 
 # Define calculation method
 execute do
