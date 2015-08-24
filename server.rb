@@ -27,8 +27,8 @@ if __FILE__ == $PROGRAM_NAME
   loader = CalculatorLoader.new helper
   router = CalculatorRouter.new loader
 
-  helper.load_directory './helpers'
-  loader.load_directory './calculators'
+  helper.load_directory File.expand_path('./helpers', File.dirname(__FILE__))
+  loader.load_directory File.expand_path('./calculators', File.dirname(__FILE__))
 
   begin
     CalculatorApp.setup(router).run!
