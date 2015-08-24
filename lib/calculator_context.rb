@@ -53,7 +53,7 @@ class CalculatorContext
     end
   end
 
-  def method_missing(symbol, *arguments)
+  def method_missing(symbol, *arguments, &block)
     if symbol.start_with? FIELD_PREFIX
       reversed_name = field_name(symbol, true)
 
@@ -61,7 +61,7 @@ class CalculatorContext
 
       fields[reversed_name]
     elsif helper?(symbol)
-      helperloader.get_helper(symbol).call(self, *arguments)
+      helperloader.get_helper(symbol).call(self, *arguments, &block)
     else
       super
     end
