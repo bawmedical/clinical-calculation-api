@@ -23,8 +23,7 @@ class CalculatorRouter
   rescue ApiError => error
     error
   rescue => error
-    logger.error "Error: #{error.message}"
-    error.backtrace.each { |line| logger.error line }
+    log_error error
 
     ServerError.new
   end
