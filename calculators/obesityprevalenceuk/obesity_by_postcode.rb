@@ -1,5 +1,4 @@
 require 'net/http'
-require 'json'
 
 name :obesity_by_postcode
 

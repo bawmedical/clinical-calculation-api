@@ -1,4 +1,3 @@
-require 'json'
 require_relative './lib/centilecalculator.rb'
 
 name :centile
