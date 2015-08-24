@@ -1,5 +1,5 @@
 def get_field(context, field_name)
-  context.send(CalculatorLoaderContext::FIELD_PREFIX + field_name.to_sym)
+  context.send(CalculatorContext::FIELD_PREFIX + field_name.to_sym)
 end
 
 def get_field_as_bool(context, field_name)
