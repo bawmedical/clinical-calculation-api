@@ -2,8 +2,8 @@ require 'net/http'
 
 name :obesity_by_postcode
 
-@electoral_ward_hash = read_json('./data/obesity&excess_weight_by_electoral_ward.json', __FILE__).symbolize_keys_select { |k, _v| !k.integer? }
-@local_authority_hash = read_json('./data/obesity&excess_weight_by_LA.json', __FILE__).symbolize_keys_select { |k, _v| !k.integer? }
+@electoral_ward_hash = read_json('./data/obesity&excess_weight_by_electoral_ward.json', __FILE__)
+@local_authority_hash = read_json('./data/obesity&excess_weight_by_LA.json', __FILE__)
 
 execute do
 
