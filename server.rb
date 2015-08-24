@@ -7,11 +7,11 @@ require_relative "./lib/ext/module.rb"
 require_relative "./lib/ext/string.rb"
 require_relative "./lib/ext/symbol.rb"
 
-require_relative "./lib/helperloader.rb"
+require_relative "./lib/helper_loader.rb"
 
-require_relative "./lib/calculatorapp.rb"
-require_relative "./lib/calculatorloader.rb"
-require_relative "./lib/calculatorrouter.rb"
+require_relative "./lib/calculator_app.rb"
+require_relative "./lib/calculator_loader.rb"
+require_relative "./lib/calculator_router.rb"
 
 # HACK: We should find a better way to handle `require'ing this file
 
