@@ -31,18 +31,18 @@ class FileLoader
 
   private
 
-  def get_wrapper_instance
+  def create_wrapper_instance
     if wrapper_args.is_a? Array
-      wrapper.new *wrapper_args
+      wrapper.new(*wrapper_args)
     elsif wrapper_args.is_a? Hash
-      wrapper.new **wrapper_args
+      wrapper.new(**wrapper_args)
     else
       wrapper.new
     end
   end
 
   def get_file_module(filename)
-    mod = get_wrapper_instance
+    mod = create_wrapper_instance
 
     return nil if mod.nil?
 

@@ -6,14 +6,14 @@ class CalculatorLoader < FileLoader
   include Logging
 
   def initialize(helperloader)
-    super CalculatorContext, [ helperloader ]
+    super CalculatorContext, [helperloader]
   end
 
   def calculators
     loaded_files.values
   end
 
-  def has_calculator?(name)
+  def calculator?(name)
     !get_calculator(name.to_sym).nil?
   end
 

@@ -42,12 +42,12 @@ class CalculatorContext
   end
 
   def helper?(helper_name)
-    @helperloader.has_helper? helper_name
+    @helperloader.helper? helper_name
   end
 
   def field_name(name, reverse = false)
     if reverse
-      name.to_sym.sub /^#{FIELD_PREFIX.to_s}/, ""
+      name.to_sym.sub(/^#{FIELD_PREFIX.to_s}/, '')
     else
       FIELD_PREFIX + name.to_sym
     end
@@ -57,9 +57,7 @@ class CalculatorContext
     if symbol.start_with? FIELD_PREFIX
       reversed_name = field_name(symbol, true)
 
-      if !fields.include? reversed_name
-        raise NoFieldError, reversed_name
-      end
+      fail NoFieldError, reversed_name unless fields.include? reversed_name
 
       fields[reversed_name]
     elsif helper?(symbol)

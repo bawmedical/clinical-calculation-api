@@ -1,6 +1,6 @@
-require_relative "./file_loader.rb"
-require_relative "./logging.rb"
-require_relative "./helper_context.rb"
+require_relative './file_loader.rb'
+require_relative './logging.rb'
+require_relative './helper_context.rb'
 
 class HelperLoader < FileLoader
   include Logging
@@ -14,19 +14,19 @@ class HelperLoader < FileLoader
 
     loaded_files.values.each do |context|
       context.helpers.each do |name, helper|
-        helpers[name] = helper if !helpers.include? name
+        helpers[name] = helper unless helpers.include? name
       end
     end
 
     helpers
   end
 
-  def has_helper?(name)
+  def helper?(name)
     helpers.include? name.to_sym
   end
 
   def get_helper(name)
-    helper = helpers.find { |helper_name, helper| helper_name.to_sym == name.to_sym }
+    helper = helpers.find { |helper_name, _helper| helper_name.to_sym == name.to_sym }
 
     helper.last unless helper.nil?
   end

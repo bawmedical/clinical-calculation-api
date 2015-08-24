@@ -7,7 +7,7 @@ module Logging
   @level = Logger::DEBUG
 
   def logger
-    @logger ||= Logging.logger_for(self.respond_to?(:logger_name) ? self.logger_name : self.class.name)
+    @logger ||= Logging.logger_for(self.respond_to?(:logger_name) ? logger_name : self.class.name)
   end
 
   def log_error(error)

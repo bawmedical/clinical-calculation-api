@@ -8,7 +8,7 @@ class CalculatorRouter
   end
 
   def call_calculator(calculator_name, fields)
-    return NotFoundError.new unless @loader.has_calculator? calculator_name
+    return NotFoundError.new unless @loader.calculator? calculator_name
 
     calculator = @loader.get_calculator calculator_name
     calculator.fields = fields
