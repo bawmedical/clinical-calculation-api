@@ -27,8 +27,8 @@ if __FILE__ == $0
   loader = CalculatorLoader.new helper
   router = CalculatorRouter.new loader
 
-  helper.load_helpers "./helpers"
-  loader.load_calculators "./calculators"
+  helper.load_directory "./helpers"
+  loader.load_directory "./calculators"
 
   begin
     CalculatorApp.setup(router).run!

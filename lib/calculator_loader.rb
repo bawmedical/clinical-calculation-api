@@ -1,20 +1,19 @@
-require_relative './class_loader.rb'
+require_relative './file_loader.rb'
 require_relative './logging.rb'
 require_relative './error.rb'
 
-class CalculatorLoaderContext < ClassLoaderContext
+class CalculatorLoaderContext
   include Logging
 
   FIELD_PREFIX = :field_
 
-  def initialize(classloader)
-    super classloader
-
+  def initialize(helperloader)
     @name = nil
     @execute_block = nil
     @fields = {}
 
     @requested_helpers = []
+    @helperloader = helperloader
   end
 
   def logger_name
@@ -104,60 +103,14 @@ class CalculatorLoaderContext < ClassLoaderContext
   end
 end
 
-class CalculatorLoader < ClassLoader
+class CalculatorLoader < FileLoader
   include Logging
 
-  CALC_EXT = ".rb"
-
   def initialize(helperloader)
-    super CalculatorLoaderContext
-
-    @helperloader = helperloader
-
-    @file_dates = {}
-  end
-
-  def load_directory(directory)
-    logger.debug "Loading directory `#{directory}'"
-
-    Dir.glob(File.join(directory, "*#{CALC_EXT}")).each { |filename| load_file filename }
-  end
-
-  def load_calculators(directory)
-    logger.debug "Loading calculators from `#{directory}'"
-
-    Dir.glob(File.join(directory, "*")).each do |filename|
-      if File.directory? filename
-        load_directory filename
-      end
-    end
-  end
-
-  def load_file(filename)
-    logger.debug "Loading file `#{filename}'"
-
-    loaded_file = nil
-
-    begin
-      loaded_file = super
-    rescue => error
-      logger.error "Error: #{error.message}"
-      error.backtrace.each { |line| logger.error line }
-    end
-
-    if loaded_file.nil?
-      logger.error "Failed to load `#{filename}'"
-    else
-      logger.debug "Loaded `#{loaded_file.name}' from `#{filename}'"
-
-      @file_dates[filename] = File.mtime(filename).to_f
-    end
-
-    loaded_file
+    super CalculatorLoaderContext, [ helperloader ]
   end
 
   def calculators
-    check_file_dates
     loaded_files.values
   end
 
@@ -167,27 +120,5 @@ class CalculatorLoader < ClassLoader
 
   def get_calculator(name)
     calculators.find { |calculator| calculator.name.to_sym == name.to_sym }
-  end
-
-  private
-
-  def get_module(filename, source)
-    mod = @context.new self
-    mod.helperloader = @helperloader
-    mod.instance_eval source, filename
-
-    mod
-  end
-
-  def check_file_dates
-    @file_dates.each do |filename, date|
-      new_date = File.mtime(filename).to_f
-
-      if date != File.mtime(filename).to_f
-        logger.debug "File `#{filename}' changed"
-
-        load_file filename
-      end
-    end
   end
 end

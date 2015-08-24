@@ -1,12 +1,10 @@
-require_relative "./class_loader.rb"
+require_relative "./file_loader.rb"
 require_relative "./logging.rb"
 
-class HelperLoaderContext < ClassLoaderContext
+class HelperLoaderContext
   include Logging
 
-  def initialize(classloader)
-    super classloader
-
+  def initialize
     @helpers = {}
   end
 
@@ -27,58 +25,11 @@ class HelperLoaderContext < ClassLoaderContext
   end
 end
 
-class HelperLoader < ClassLoader
+class HelperLoader < FileLoader
   include Logging
-
-  HELPER_EXT = ".rb"
 
   def initialize
     super HelperLoaderContext
-  end
-
-  def load_directory(directory)
-    logger.debug "Loading directory `#{directory}'"
-
-    Dir.glob(File.join(directory, "*#{HELPER_EXT}")).each { |filename| load_file filename }
-  end
-
-  def load_helpers(directory)
-    logger.debug "Loading helpers from `#{directory}'"
-
-    Dir.glob(File.join(directory, "*")).each do |filename|
-      if File.directory? filename
-        load_directory filename
-      end
-    end
-  end
-
-  def load_file(filename)
-    all_helpers = helpers
-
-    loaded_file = super filename
-
-    if loaded_file.nil?
-      logger.warn "Failed to load `#{filename}'"
-    else
-      duplicate_helper = nil
-
-      loaded_file.helpers.keys.each do |name|
-        if all_helpers.include? name
-          duplicate_helper = name
-          break
-        end
-      end
-
-      if !duplicate_helper.nil?
-        logger.error "Helper `#{duplicate_helper}' (found in `#{filename}') already defined"
-        return nil
-      else
-        loaded_count = loaded_file.helpers.keys.length
-        logger.debug "Loaded #{loaded_count} helper #{"method".pluralize loaded_count, "s"} from `#{filename}'"
-      end
-    end
-
-    loaded_file
   end
 
   def helpers
