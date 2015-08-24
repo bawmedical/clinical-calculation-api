@@ -15,18 +15,10 @@ execute do
   # TODO: Improve this section (maybe add parameter to get_field_as_* to make it optional?)
 
   # Make prior_major_bleeding optional by checking if it exists before trying to retrieving it
-  prior_major_bleeding =  if field? :prior_major_bleeding
-                            get_field_as_bool :prior_major_bleeding
-                          else
-                            false
-                          end
+  prior_major_bleeding = try_field { get_field_as_bool(:prior_major_bleeding) }
 
   # Make predisposition_to_bleeding optional by checking if it exists before trying to retrieving it
-  predisposition_to_bleeding =  if field? :predisposition_to_bleeding
-                                  get_field_as_bool :predisposition_to_bleeding
-                                else
-                                  false
-                                end
+  predisposition_to_bleeding = try_field { get_field_as_bool(:predisposition_to_bleeding) }
 
   labile_inr = get_field_as_bool :labile_inr
   age = get_field_as_integer :age
