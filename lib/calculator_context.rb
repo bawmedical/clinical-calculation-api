@@ -5,6 +5,9 @@ class CalculatorContext
 
   FIELD_PREFIX = :field_
 
+  attr_accessor :fields
+  attr_accessor :helperloader
+
   def initialize(helperloader)
     @name = nil
     @execute_block = nil
@@ -30,24 +33,8 @@ class CalculatorContext
     @execute_block = block
   end
 
-  def fields=(fields)
-    @fields = fields
-  end
-
-  def fields
-    @fields
-  end
-
   def field?(field_name, prefixed = true)
     fields.include? field_name(field_name, prefixed)
-  end
-
-  def helperloader=(helperloader)
-    @helperloader = helperloader
-  end
-
-  def helperloader
-    @helperloader
   end
 
   def helpers
