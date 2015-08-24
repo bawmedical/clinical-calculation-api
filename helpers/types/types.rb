@@ -62,9 +62,16 @@ def get_fields_as_date(context, year_field, month_field, day_field)
   end
 end
 
+def try_field(_context)
+  yield
+rescue NoFieldError
+  nil
+end
+
 add_helper_method method(:get_field_as_bool)
 add_helper_method method(:get_field_as_float)
 add_helper_method method(:get_field_as_integer)
 add_helper_method method(:get_field_as_sex)
 add_helper_method method(:get_fields_as_date)
 add_helper_method method(:get_field)
+add_helper_method method(:try_field)
