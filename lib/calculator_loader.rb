@@ -1,4 +1,4 @@
-require_relative './classloader.rb'
+require_relative './class_loader.rb'
 require_relative './logging.rb'
 require_relative './error.rb'
 

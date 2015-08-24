@@ -4,8 +4,8 @@ require 'json'
 require_relative './logging.rb'
 require_relative './error.rb'
 
-require_relative './calculatorrouter.rb'
-require_relative './calculatorloader.rb'
+require_relative './calculator_router.rb'
+require_relative './calculator_loader.rb'
 
 class CalculatorApp < Sinatra::Base
   include Logging
