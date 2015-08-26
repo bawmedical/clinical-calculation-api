@@ -28,11 +28,14 @@ end
 
 def setup_app
   CalculatorApp.setup create_default_router
+
+  CalculatorApp.configure do |app|
+    app.set :server_settings, AccessLog: []
+  end
 end
 
 if __FILE__ == $PROGRAM_NAME
   CalculatorApp.configure do |app|
-    app.set :server_settings, AccessLog: []
     app.set :bind, '0.0.0.0'
   end
 
