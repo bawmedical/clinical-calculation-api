@@ -12,5 +12,5 @@ execute do
     fail FieldError.new('local_authority_name', 'must be a valid local authority name')
   end
 
-  local_authority_hash[local_authority_name.to_sym]
+  local_authority_hash[local_authority_name]
 end
