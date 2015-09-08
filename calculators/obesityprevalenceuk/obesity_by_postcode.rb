@@ -21,6 +21,6 @@ execute do
   postcode_data[:areas].each { |_k, v| response[:ward] = v[:name] if v[:type_name].match(/ward/) }
   # postcode_data["areas"].each { |k,v| response[:local_authority] = v["name"] if v["type_name"]=="what goes here?" }
 
-  response[:obesity_by_ward] = electoral_ward_hash[response[:ward].to_sym]
+  response[:obesity_by_ward] = electoral_ward_hash[response[:ward]]
   response
 end

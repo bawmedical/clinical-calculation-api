@@ -8,9 +8,9 @@ execute do
   electoral_ward_name = get_field :electoral_ward_name
 
   # Ensure fields are valid
-  unless electoral_ward_hash.include? electoral_ward_name.to_sym
+  unless electoral_ward_hash.include? electoral_ward_name
     fail FieldError.new('electoral_ward_name', 'must be a valid electoral ward name')
   end
 
-  electoral_ward_hash[electoral_ward_name.to_sym]
+  electoral_ward_hash[electoral_ward_name]
 end
