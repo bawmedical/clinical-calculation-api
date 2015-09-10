@@ -48,6 +48,14 @@ class Hash
     symbolize_keys_select { true }
   end
 
+  def matches?(other)
+    other.each do |key, value|
+      return false unless has_key?(key) && self[key] == value
+    end
+
+    true
+  end
+
   def length
     keys.length
   end
