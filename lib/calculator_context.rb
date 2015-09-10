@@ -10,7 +10,7 @@ class CalculatorContext
 
   def initialize(helperloader)
     @name = nil
-    @execute_block = nil
+    @execute_proc = nil
     @fields = {}
 
     @helperloader = helperloader
@@ -26,11 +26,15 @@ class CalculatorContext
   end
 
   def call
-    @execute_block.call unless @execute_block.nil?
+    execute
   end
 
-  def execute(&block)
-    @execute_block = block
+  def execute
+    if block_given?
+      @execute_proc = Proc.new
+    elsif !@execute_proc.nil?
+      @execute_proc.call
+    end
   end
 
   def field?(field_name, prefixed = true)
