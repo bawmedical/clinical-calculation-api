@@ -50,7 +50,7 @@ class Hash
 
   def matches?(other)
     other.each do |key, value|
-      return false unless has_key?(key) && self[key] == value
+      return false unless key?(key) && self[key] == value
     end
 
     true
