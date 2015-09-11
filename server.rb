@@ -9,13 +9,19 @@ require_relative './lib/calculator_app.rb'
 require_relative './lib/calculator_loader.rb'
 require_relative './lib/calculator_router.rb'
 
-def create_default_router
+def create_calculator_loader
   helper = HelperLoader.new
   loader = CalculatorLoader.new helper
-  router = CalculatorRouter.new loader
 
   helper.load_directory File.expand_path('./helpers', File.dirname(__FILE__))
   loader.load_directory File.expand_path('./calculators', File.dirname(__FILE__))
+
+  { helper: helper, loader: loader }
+end
+
+def create_default_router
+  loader = create_calculator_loader
+  router = CalculatorRouter.new loader[:loader]
 
   router
 end
