@@ -16,12 +16,11 @@ def create_calculator_loader
   helper.load_directory File.expand_path('./helpers', File.dirname(__FILE__))
   loader.load_directory File.expand_path('./calculators', File.dirname(__FILE__))
 
-  { helper: helper, loader: loader }
+  loader
 end
 
 def create_default_router
-  loader = create_calculator_loader
-  router = CalculatorRouter.new loader[:loader]
+  router = CalculatorRouter.new create_calculator_loader
 
   router
 end
