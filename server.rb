@@ -1,11 +1,7 @@
 require 'rubygems'
 require 'bundler/setup'
 
-require_relative './lib/ext/date.rb'
-require_relative './lib/ext/hash.rb'
-require_relative './lib/ext/module.rb'
-require_relative './lib/ext/string.rb'
-require_relative './lib/ext/symbol.rb'
+require_relative './lib/ext/all.rb'
 
 require_relative './lib/helper_loader.rb'
 
