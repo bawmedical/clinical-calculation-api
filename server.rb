@@ -13,8 +13,6 @@ require_relative './lib/calculator_app.rb'
 require_relative './lib/calculator_loader.rb'
 require_relative './lib/calculator_router.rb'
 
-# HACK: We should find a better way to handle `require'ing this file
-
 def create_default_router
   helper = HelperLoader.new
   loader = CalculatorLoader.new helper
@@ -33,6 +31,8 @@ def setup_app
     app.set :server_settings, AccessLog: []
   end
 end
+
+# HACK: We should find a better way to handle `require'ing this file
 
 if __FILE__ == $PROGRAM_NAME
   CalculatorApp.configure do |app|
