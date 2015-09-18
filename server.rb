@@ -40,10 +40,5 @@ if __FILE__ == $PROGRAM_NAME
     app.set :bind, '0.0.0.0'
   end
 
-  begin
-    setup_app.run!
-  rescue => error
-    logger.error "Error: #{error.message}"
-    error.backtrace.each { |line| logger.error line }
-  end
+  setup_app.run!
 end
