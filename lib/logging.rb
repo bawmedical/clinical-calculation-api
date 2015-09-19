@@ -7,12 +7,16 @@ module Logging
   @level = Logger::DEBUG
 
   def logger
-    @logger ||= Logging.logger_for(self.respond_to?(:logger_name) ? logger_name : self.class.name)
+    @logger ||= Logging.logger_for_class self.class
   end
 
   def log_error(error)
     logger.error "Error: #{error.message}"
     error.backtrace.each { |line| logger.error line }
+  end
+
+  def self.logger_for_class(clazz)
+    logger_for(clazz.respond_to?(:logger_name) ? clazz.logger_name : clazz.name)
   end
 
   def self.logger_for(class_name)
@@ -33,7 +37,7 @@ module Logging
 
   def self.included(base)
     base.define_singleton_method(:logger) do
-      @logger ||= Logging.logger_for name
+      @logger ||= Logging.logger_for_class base
     end
   end
 
@@ -50,6 +54,8 @@ module Logging
     end
 
     def call(severity, time, progname, msg)
+      msg = 'nil' if msg.nil?
+
       color = LogFormatter.get_color severity
 
       possible_colors = String.color_codes.keys.delete_if do |sym|
