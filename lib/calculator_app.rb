@@ -24,14 +24,14 @@ class CalculatorApp < Sinatra::Base
     self.class.instance_variable_get '@router'
   end
 
-  get '/:calculator' do
-    calculator_name = params[:calculator]
+  get '/:endpoint' do
+    endpoint_name = params[:endpoint].to_sym
 
     fields = request.GET.symbolize_keys
 
-    logger.debug "Requested calculator `#{calculator_name}'"
+    logger.debug "Requested endpoint `#{endpoint_name}'"
 
-    response = router.handle_request(calculator_name, fields)
+    response = router.handle_request(endpoint_name, fields)
 
     if response.is_a? ApiError
       response = response.to_h

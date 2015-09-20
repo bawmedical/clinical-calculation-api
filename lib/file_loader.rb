@@ -1,16 +1,14 @@
 class FileLoader
-  attr_reader :loaded_files
   attr_reader :wrapper
   attr_reader :wrapper_args
 
   def initialize(wrapper = Module, wrapper_args = nil)
-    @loaded_files = {}
     @wrapper = wrapper
     @wrapper_args = wrapper_args
   end
 
   def load_file(filename)
-    @loaded_files[filename] = get_file_module(filename)
+    get_file_module filename
   end
 
   def load_directory(directory, only_subdirectories = true)
@@ -23,10 +21,6 @@ class FileLoader
         load_file basename
       end
     end
-  end
-
-  def values
-    loaded_files.values.reduce :concat
   end
 
   private

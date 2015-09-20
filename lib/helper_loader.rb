@@ -5,20 +5,21 @@ require_relative './helper_context.rb'
 class HelperLoader < FileLoader
   include Logging
 
+  attr_reader :helpers
+
   def initialize
     super HelperContext
+    @helpers = {}
   end
 
-  def helpers
-    helpers = {}
+  def load_file(filename)
+    loaded_file = super
 
-    loaded_files.values.each do |context|
-      context.helpers.each do |name, helper|
-        helpers[name] = helper unless helpers.include? name
-      end
+    if loaded_file.nil?
+      logger.error "Failed to load `#{filename}'"
+    else
+      @helpers.merge loaded_file.helpers
     end
-
-    helpers
   end
 
   def helper?(name)
@@ -26,8 +27,6 @@ class HelperLoader < FileLoader
   end
 
   def get_helper(name)
-    helper = helpers.find { |helper_name, _helper| helper_name.to_sym == name.to_sym }
-
-    helper.last unless helper.nil?
+    helpers[name]
   end
 end
