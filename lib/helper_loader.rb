@@ -18,8 +18,10 @@ class HelperLoader < FileLoader
     if loaded_file.nil?
       logger.error "Failed to load `#{filename}'"
     else
-      @helpers.merge loaded_file.helpers
+      @helpers.merge! loaded_file.helpers
     end
+
+    loaded_file
   end
 
   def helper?(name)
