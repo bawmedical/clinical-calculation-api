@@ -17,7 +17,11 @@ class CalculatorRouter
     field_hash = FieldHash[fields]
     helper_hash = MethodHash[@helper_loader.helpers]
 
-    endpoint.call(field_hash, helper_hash)
+    if endpoint.arity == 0
+      endpoint.call
+    else
+      endpoint.call(field_hash, helper_hash)
+    end
   end
 
   def handle_request(endpoint_name, fields)
