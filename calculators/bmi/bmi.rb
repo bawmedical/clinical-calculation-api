@@ -1,15 +1,13 @@
-name :bmi
+class BmiCalculator < Calculator
+  def bmi(_fields, helpers)
+    weight = helpers.get_field_as_float :weight_in_kg
+    height = helpers.get_field_as_float :height_in_m
 
-# Define calculation method
-execute do
+    fail FieldError.new('weight', 'must be greater than zero') if weight <= 0
+    fail FieldError.new('height', 'must be greater than zero') if height <= 0
 
-  # Retrieve fields from request
-  weight = get_field_as_float :weight_in_kg
-  height = get_field_as_float :height_in_m
+    { value: weight / (height**2), units: 'kg/m^2' }
+  end
 
-  # Ensure fields are valid
-  fail FieldError.new('weight', 'must be greater than zero') if weight <= 0
-  fail FieldError.new('height', 'must be greater than zero') if height <= 0
-
-  { value: weight / (height**2), units: 'kg/m^2' }
+  endpoint :bmi
 end
