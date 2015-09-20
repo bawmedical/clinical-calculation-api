@@ -1,4 +1,4 @@
-def months_between(_context, start_date, end_date)
+def months_between(_fields, start_date, end_date)
   ((start_date - end_date).abs / (365.25 / 12)).round
 end
 

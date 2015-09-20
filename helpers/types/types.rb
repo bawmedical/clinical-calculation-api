@@ -1,9 +1,9 @@
-def get_field(context, field_name)
-  context.send(CalculatorContext::FIELD_PREFIX + field_name.to_sym)
+def get_field(fields, field_name)
+  fields.send(field_name)
 end
 
-def get_field_as_bool(context, field_name)
-  value = get_field context, field_name
+def get_field_as_bool(fields, field_name)
+  value = get_field fields, field_name
 
   if value.bool?
     value.to_bool
@@ -12,8 +12,8 @@ def get_field_as_bool(context, field_name)
   end
 end
 
-def get_field_as_float(context, field_name)
-  value = get_field context, field_name
+def get_field_as_float(fields, field_name)
+  value = get_field fields, field_name
 
   if value.float?
     Float(value)
@@ -22,8 +22,8 @@ def get_field_as_float(context, field_name)
   end
 end
 
-def get_field_as_integer(context, field_name)
-  value = get_field context, field_name
+def get_field_as_integer(fields, field_name)
+  value = get_field fields, field_name
 
   if value.integer?
     Integer(value)
@@ -32,8 +32,8 @@ def get_field_as_integer(context, field_name)
   end
 end
 
-def get_field_as_sex(context, field_name)
-  value = get_field context, field_name
+def get_field_as_sex(fields, field_name)
+  value = get_field fields, field_name
 
   return :male   if value =~ (/^(m|male|0)$/i)
   return :female if value =~ (/^(f|female|1)$/i)
@@ -41,10 +41,10 @@ def get_field_as_sex(context, field_name)
   fail FieldError.new field_name.to_s, 'must be a sex (male/female)'
 end
 
-def get_fields_as_date(context, year_field, month_field, day_field)
-  year_value = get_field_as_integer context, year_field
-  month_value = get_field_as_integer context, month_field
-  day_value = get_field_as_integer context, day_field
+def get_fields_as_date(fields, year_field, month_field, day_field)
+  year_value = get_field_as_integer fields, year_field
+  month_value = get_field_as_integer fields, month_field
+  day_value = get_field_as_integer fields, day_field
 
   valid_year = year_value > 0
   valid_month = Date.valid_month? month_value
@@ -62,7 +62,7 @@ def get_fields_as_date(context, year_field, month_field, day_field)
   end
 end
 
-def try_field(_context)
+def try_field
   yield
 rescue NoFieldError
   nil

@@ -1,6 +1,6 @@
 require_relative './error.rb'
 require_relative './field_hash.rb'
-require_relative './method_hash.rb'
+require_relative './helper_hash.rb'
 
 class CalculatorRouter
   include Logging
@@ -15,7 +15,8 @@ class CalculatorRouter
 
     endpoint = @loader.get_endpoint endpoint_name
     field_hash = FieldHash[fields]
-    helper_hash = MethodHash[@helper_loader.helpers]
+    helper_hash = HelperHash[@helper_loader.helpers]
+    helper_hash.fields = field_hash
 
     if endpoint.arity == 0
       endpoint.call
