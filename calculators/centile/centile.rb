@@ -9,7 +9,7 @@ class CentileCalculator < Calculator
     @calculator = Centile.new JSON.parse(File.read(full_path))
   end
 
-  def validate_fields(weight, height, date_of_birth)
+  def validate_fields(weight, height, date_of_birth, today)
     fail FieldError.new('weight', 'must be greater than zero') if weight <= 0
     fail FieldError.new('height', 'must be greater than zero') if height <= 0
     fail FieldError.new('year_of_birth', 'must be greater than zero') if date_of_birth.year <= 0
@@ -40,7 +40,7 @@ class CentileCalculator < Calculator
 
     today = Date.today
 
-    validate_fields weight, height, date_of_birth
+    validate_fields weight, height, date_of_birth, today
 
     # Calculate information based on fields
     age_in_months = helpers.months_between date_of_birth, today
