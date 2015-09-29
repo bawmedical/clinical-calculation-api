@@ -62,7 +62,7 @@ def get_fields_as_date(fields, year_field, month_field, day_field)
   end
 end
 
-def try_field
+def try_field(_fields)
   yield
 rescue NoFieldError
   nil
