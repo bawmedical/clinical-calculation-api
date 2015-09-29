@@ -1,58 +1,44 @@
-name :hasbled
+class HasBledCalculator < Calculator
+  SCORING = {
+    hypertension_history: { points: 1 },
+    renal_disease: { points: 1 },
+    liver_disease: { points: 1 },
+    stroke_history: { points: 1 },
+    prior_major_bleeding: { points: 1 },
+    predisposition_to_bleeding: { points: 1 },
+    labile_inr: { points: 1 },
+    age: { points: 1, cause: proc { |field| field > 65 } },
+    medication_usage_predisposing_to_bleeding: { points: 1 },
+    alcohol_or_drug_history: { points: 1 }
+  }
 
-# Define calculation method
-execute do
+  def get_fields(helpers)
+    {
+      hypertension_history: helpers.get_field_as_bool(:hypertension_history),
+      renal_disease: helpers.get_field_as_bool(:renal_disease),
+      liver_disease: helpers.get_field_as_bool(:liver_disease),
+      stroke_history: helpers.get_field_as_bool(:stroke_history),
+      prior_major_bleeding: helpers.try_field { helpers.get_field_as_bool(:prior_major_bleeding) },
+      predisposition_to_bleeding: helpers.try_field { helpers.get_field_as_bool(:predisposition_to_bleeding) },
+      age: helpers.get_field_as_integer(:age),
+      medication_usage_predisposing_to_bleeding: helpers.get_field_as_bool(:medication_usage_predisposing_to_bleeding),
+      alcohol_or_drug_history: helpers.get_field_as_bool(:alcohol_or_drug_history)
+    }
+  end
 
-  # Retrieve fields from request
-  hypertension_history = get_field_as_bool :hypertension_history
-  renal_disease = get_field_as_bool :renal_disease
-  liver_disease = get_field_as_bool :liver_disease
-  stroke_history = get_field_as_bool :stroke_history
+  def hasbled(_fields, helpers)
+    fields = get_fields helpers
 
-  # Ensure at least one bleeding field is present
-  fail NoFieldError, 'prior_major_bleeding' unless field?(:prior_major_bleeding) || field?(:predisposition_to_bleeding)
+    if fields[:prior_major_bleeding].nil? && fields[:predisposition_to_bleeding].nil?
+      fail NoFieldError, 'prior_major_bleeding'
+    end
 
-  # TODO: Improve this section (maybe add parameter to get_field_as_* to make it optional?)
+    score = helpers.calculate_score SCORING, fields
 
-  # Make prior_major_bleeding optional by checking if it exists before trying to retrieving it
-  prior_major_bleeding = try_field { get_field_as_bool(:prior_major_bleeding) }
+    score -= 1 if fields[:prior_major_bleeding] && fields[:predisposition_to_bleeding]
 
-  # Make predisposition_to_bleeding optional by checking if it exists before trying to retrieving it
-  predisposition_to_bleeding = try_field { get_field_as_bool(:predisposition_to_bleeding) }
+    helpers.generate_response score
+  end
 
-  labile_inr = get_field_as_bool :labile_inr
-  age = get_field_as_integer :age
-  medication_usage_predisposing_to_bleeding = get_field_as_bool :medication_usage_predisposing_to_bleeding
-  alcohol_or_drug_history = get_field_as_bool :alcohol_or_drug_history
-
-  score = 0
-
-  # Hypertension History (Uncontrolled, >160 mmHg systolic)
-  score += 1 if hypertension_history
-
-  # Renal Disease (Dialysis, transplant, Cr >2.6 mg/dL or >200 umol/L)
-  score += 1 if renal_disease
-
-  # Liver Disease (Cirrhosis or Bilirubin >2x Normal or AST/ALT/AP >3x Normal)
-  score += 1 if liver_disease
-
-  # Stroke History
-  score += 1 if stroke_history
-
-  # Prior Major Bleeding or Predisposition to Bleeding
-  score += 1 if prior_major_bleeding || predisposition_to_bleeding
-
-  # Labile INR ((Unstable/high INRs), Time in Therapeutic Range < 60%)
-  score += 1 if labile_inr
-
-  # Age > 65
-  score += 1 if age > 65
-
-  # Medication Usage Predisposing to Bleeding (Antiplatelet agents, NSAIDs)
-  score += 1 if medication_usage_predisposing_to_bleeding
-
-  # Alcohol or Drug Usage History (>= 8 drinks/week)
-  score += 1 if alcohol_or_drug_history
-
-  { value: score }
+  endpoint :hasbled
 end
