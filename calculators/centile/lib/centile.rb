@@ -1,6 +1,6 @@
 require 'distribution'
 
-class CentileCalculator
+class Centile
   def initialize(lms_hash)
     @lms_hash = lms_hash.symbolize_keys_select { |k, _v| !k.integer? }
   end
