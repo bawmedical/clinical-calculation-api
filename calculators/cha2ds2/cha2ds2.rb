@@ -1,40 +1,44 @@
-name :cha2ds2
+class Cha2Ds2Calculator < Calculator
+  SCORING = [
+    { points: 1, field: :age, cause: proc { |field| (65..74).include? field } },
+    { points: 2, field: :age, cause: proc { |field| field >= 75 } },
+    { points: 1, field: :sex, cause: :female },
+    { points: 1, field: :congestive_heart_failure_history, cause: true },
+    { points: 1, field: :hypertension_history, cause: true },
+    { points: 2, field: :stroke_history, cause: true },
+    { points: 1, field: :vascular_disease_history, cause: true },
+    { points: 1, field: :diabetes, cause: true }
+  ]
 
-# Define calculation method
-execute do
+  def get_score(fields)
+    score = 0
 
-  # Retrieve fields from request
-  age = get_field_as_integer :age
-  sex = get_field_as_sex :sex
-  congestive_heart_failure_history = get_field_as_bool :congestive_heart_failure_history
-  hypertension_history = get_field_as_bool :hypertension_history
-  stroke_history = get_field_as_bool :stroke_history
-  vascular_disease_history = get_field_as_bool :vascular_disease_history
-  diabetes = get_field_as_bool :diabetes
+    SCORING.each do |item|
+      value = fields[item[:field]]
 
-  score = 0
+      if item[:cause].respond_to? :call
+        score += item[:points] if item[:cause].call value
+      else
+        score += item[:points] if item[:cause] == value
+      end
+    end
 
-  # Age
-  score += 1 if (65..74).include? age
-  score += 2 if age >= 75
+    score
+  end
 
-  # Sex
-  score += 1 if sex == :female
+  def cha2ds2(_fields, helpers)
+    fields = {
+      age: helpers.get_field_as_integer(:age),
+      sex: helpers.get_field_as_sex(:sex),
+      congestive_heart_failure_history: helpers.get_field_as_bool(:congestive_heart_failure_history),
+      hypertension_history: helpers.get_field_as_bool(:hypertension_history),
+      stroke_history: helpers.get_field_as_bool(:stroke_history),
+      vascular_disease_history: helpers.get_field_as_bool(:vascular_disease_history),
+      diabetes: helpers.get_field_as_bool(:diabetes)
+    }
 
-  # Congestive Heart Failure History
-  score += 1 if congestive_heart_failure_history
+    get_score fields
+  end
 
-  # Hypertension History
-  score += 1 if hypertension_history
-
-  # Stroke/TIA/Thromboembolism History
-  score += 2 if stroke_history
-
-  # Vascular Disease History
-  score += 1 if vascular_disease_history
-
-  # Diabetes Mellitus
-  score += 1 if diabetes
-
-  { value: score }
+  endpoint :cha2ds2
 end
