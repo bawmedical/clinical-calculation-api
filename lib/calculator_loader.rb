@@ -13,6 +13,8 @@ class CalculatorLoader < FileLoader
   end
 
   def load_file(filename)
+    logger.debug "Loading calculators from `#{filename}'"
+
     loaded_file = super
 
     if loaded_file.nil?
@@ -20,6 +22,8 @@ class CalculatorLoader < FileLoader
     else
       calculator_classes = loaded_file.classes.select { |c| c < Calculator }
       @calculators.concat calculator_classes.map(&:new)
+
+      calculator_classes.each { |c| logger.debug "Loaded `#{c.name.split('::').last}' from `#{filename}`" }
     end
 
     loaded_file
