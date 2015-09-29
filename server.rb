@@ -9,6 +9,8 @@ require_relative './lib/calculator_app.rb'
 require_relative './lib/calculator_loader.rb'
 require_relative './lib/calculator_router.rb'
 
+require_relative './lib/logging.rb'
+
 def create_calculator_loader
   loader = CalculatorLoader.new
   helper = HelperLoader.new
@@ -37,9 +39,16 @@ end
 # HACK: We should find a better way to handle `require'ing this file
 
 if __FILE__ == $PROGRAM_NAME
+  logger = Logging.logger_for 'Server'
+
   CalculatorApp.configure do |app|
     app.set :bind, '0.0.0.0'
   end
 
-  setup_app.run!
+  begin
+    setup_app.run!
+  rescue => error
+    logger.error "Error: #{error.message}"
+    error.backtrace.each { |line| logger.error line }
+  end
 end
