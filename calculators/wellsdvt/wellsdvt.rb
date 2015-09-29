@@ -1,51 +1,50 @@
-name :wellsdvt
+class WellsDvtCalculator < Calculator
+  SCORING = {
+    # Active Cancer (Treatment or Pallation within 6 months)
+    active_cancer: { points: 1 },
 
-# Define calculation method
-execute do
+    # Bedridden recently >= 3 days or major surgery within 12 weeks
+    bedridden_major_surgery: { points: 1 },
 
-  # Retrieve fields from request
-  active_cancer = get_field_as_bool :active_cancer
-  bedridden_major_surgery = get_field_as_bool :bedridden_major_surgery
-  calf_swollen = get_field_as_bool :calf_swollen
-  collateral_veins = get_field_as_bool :collateral_veins
-  full_swelling = get_field_as_bool :full_swelling
-  local_tenderness = get_field_as_bool :local_tenderness
-  pitting_edema = get_field_as_bool :pitting_edema
-  immobilized_leg = get_field_as_bool :immobilized_leg
-  previous_dvt = get_field_as_bool :previous_dvt
-  alternate_diagnosis = get_field_as_bool :alternate_diagnosis
+    # Calf swelling > 3 cm
+    calf_swollen: { points: 1 },
 
-  score = 0
+    # Collateral superficial veins present
+    collateral_veins: { points: 1 },
 
-  # Active Cancer (Treatment or Pallation within 6 months)
-  score += 1 if active_cancer
+    # Entire leg swollen
+    full_swelling: { points: 1 },
 
-  # Bedridden recently >= 3 days or maj surgery within 12 weeks
-  score += 1 if bedridden_major_surgery
+    # Localized tenderness along the deep venous system
+    local_tenderness: { points: 1 },
 
-  # Calf swelling > 3 cm
-  score += 1 if calf_swollen
+    # Pitting edema confined to symptomatic leg
+    pitting_edema: { points: 1 },
 
-  # Collateral superficial veins present
-  score += 1 if collateral_veins
+    # Paralysis, paresis, or recent plaster immobilization of the extremity
+    immobilized_leg: { points: 1 },
 
-  # Entire leg swollen
-  score += 1 if full_swelling
+    # Previously documented DVT
+    previous_dvt: { points: 1 },
 
-  # Localized tenderness along the deep venous system
-  score += 1 if local_tenderness
+    # Alternative diagnosis to DVT at least as likely
+    alternate_diagnosis: { points: -2 }
+  }
 
-  # Pitting edema confined to symptomatic leg
-  score += 1 if pitting_edema
+  def wellsdvt(_fields, helpers)
+    fields = {
+      active_cancer:           helpers.get_field_as_bool(:active_cancer),
+      bedridden_major_surgery: helpers.get_field_as_bool(:bedridden_major_surgery),
+      calf_swollen:            helpers.get_field_as_bool(:calf_swollen),
+      collateral_veins:        helpers.get_field_as_bool(:collateral_veins),
+      full_swelling:           helpers.get_field_as_bool(:full_swelling),
+      local_tenderness:        helpers.get_field_as_bool(:local_tenderness),
+      pitting_edema:           helpers.get_field_as_bool(:pitting_edema),
+      immobilized_leg:         helpers.get_field_as_bool(:immobilized_leg),
+      previous_dvt:            helpers.get_field_as_bool(:previous_dvt),
+      alternate_diagnosis:     helpers.get_field_as_bool(:alternate_diagnosis)
+    }
 
-  # Paralysis, paresis, or recent plaster immobilization of the extremity
-  score += 1 if immobilized_leg
-
-  # Previously documented DVT
-  score += 1 if previous_dvt
-
-  # Alternative diagnosis to DVT at least as likely
-  score -= 2 if alternate_diagnosis
-
-  { value: score }
+    helpers.generate_response helpers.calculate_score SCORING, fields
+  end
 end
