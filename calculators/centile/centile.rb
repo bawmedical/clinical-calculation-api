@@ -46,7 +46,7 @@ class CentileCalculator < Calculator
     age_in_months = helpers.months_between date_of_birth, today
     bmi = weight / (height**2)
 
-    get_centiles sex, age_in_months, height, weight, bmi
+    helpers.generate_response get_centiles(sex, age_in_months, height, weight, bmi)
   end
 
   endpoint :centile

@@ -6,7 +6,8 @@ class BmiCalculator < Calculator
     fail FieldError.new('weight', 'must be greater than zero') if weight <= 0
     fail FieldError.new('height', 'must be greater than zero') if height <= 0
 
-    { value: weight / (height**2), units: 'kg/m^2' }
+    result = weight / (height**2)
+    helpers.generate_response result, 'kg/m^2'
   end
 
   endpoint :bmi

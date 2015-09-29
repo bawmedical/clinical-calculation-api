@@ -52,7 +52,7 @@ class Cha2Ds2Calculator < Calculator
       diabetes: helpers.get_field_as_bool(:diabetes)
     }
 
-    get_score fields
+    helpers.generate_response get_score(fields)
   end
 
   endpoint :cha2ds2
