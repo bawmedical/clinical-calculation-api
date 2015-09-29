@@ -1,14 +1,26 @@
 class HasBledCalculator < Calculator
   SCORING = {
+    # Hypertension History (Uncontrolled, >160 mmHg systolic)
     hypertension_history: { points: 1 },
+
+    # Renal Disease (Dialysis, transplant, Cr >2.6 mg/dL or >200 umol/L)
     renal_disease: { points: 1 },
+
+    # Liver Disease (Cirrhosis or Bilirubin >2x Normal or AST/ALT/AP >3x Normal)
     liver_disease: { points: 1 },
+
     stroke_history: { points: 1 },
     prior_major_bleeding: { points: 1 },
     predisposition_to_bleeding: { points: 1 },
+
+    # Labile INR ((Unstable/high INRs), Time in Therapeutic Range < 60%)
     labile_inr: { points: 1 },
     age: { points: 1, cause: proc { |field| field > 65 } },
+
+    # Medication Usage Predisposing to Bleeding (Antiplatelet agents, NSAIDs)
     medication_usage_predisposing_to_bleeding: { points: 1 },
+
+    # Alcohol or Drug Usage History (>= 8 drinks/week)
     alcohol_or_drug_history: { points: 1 }
   }
 
