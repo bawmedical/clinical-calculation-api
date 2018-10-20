@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get 'example', to: 'example#calculate'
     get 'bmi', to: 'bmi#calculate'
     get 'bsa', to: 'bsa#calculate'
+    get 'chads2vasc', to: 'chads2vasc#calculate'
   end
 
 end
