@@ -15,22 +15,22 @@ class Chads2vascController < ApplicationController
     chads2vasc_score += 2 if age >= 75
 
     # Sex
-    chads2vasc_score += 1 if sex == :female
+    chads2vasc_score += 1 if sex == "female"
 
     # Congestive Heart Failure History
-    chads2vasc_score += 1 if congestive_heart_failure_history
+    chads2vasc_score += 1 if congestive_heart_failure_history == "true"
 
     # Hypertension History
-    chads2vasc_score += 1 if hypertension_history
+    chads2vasc_score += 1 if hypertension_history == "true"
 
     # Stroke/TIA/Thromboembolism History
-    chads2vasc_score += 2 if stroke_history
+    chads2vasc_score += 2 if stroke_history == "true"
 
     # Vascular Disease History
-    chads2vasc_score += 1 if vascular_disease_history
+    chads2vasc_score += 1 if vascular_disease_history == "true"
 
     # Diabetes Mellitus
-    chads2vasc_score += 1 if diabetes
+    chads2vasc_score += 1 if diabetes == "true"
 
     render json: {
       request_parameters: {
