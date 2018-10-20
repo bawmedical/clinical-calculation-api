@@ -1,5 +1,0 @@
-require_relative './date.rb'
-require_relative './hash.rb'
-require_relative './module.rb'
-require_relative './string.rb'
-require_relative './symbol.rb'
