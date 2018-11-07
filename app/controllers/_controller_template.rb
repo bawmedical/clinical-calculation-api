@@ -7,11 +7,14 @@ class TemplateController < ApplicationController
 
     render json: {
       request_parameters: {
+        # send the parameters from the original request back to aid debugging
       },
       calculations: [
+        {
           calculation_name: '',
           units: ''
         },
+        {
           calculation_name: '',
           units: ''
         },
