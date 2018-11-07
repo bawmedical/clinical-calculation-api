@@ -2,11 +2,14 @@
 
 A Ruby on Rails application which presents a range of clinical calculations as a REST API
 
+## IMPORTANT - DISCLAIMER
+This API is a work in progress and is offered as an open source project as-is, without any warranty. It is expressly not for live use in clinical systems with real patients.
+
 ### Why use an API for this?
 * avoids the need for the calculations to be implemented locally in applications, which can result in errors
 * calculations can be openly peer-reviewed and clinically assured
 * MHRA registration as a medical device can be done once at the API level
-* clinicians can contribute knowledge to a single 
+* clinicians can contribute knowledge to a single
 
 ### Background
 * Clinical calculations are tools which medical professionals use to help make decisions. Many of them are available in web page form on sites such as [MDCalc](https://www.mdcalc.com/)
@@ -51,4 +54,7 @@ A Ruby on Rails application which presents a range of clinical calculations as a
 ### About Open Health Hub CIC
 * Open Health Hub CIC is a non-profit organisation which is dedicated to promoting open source in healthcare, and developing open source healthcare applications, tools, and knowledgebase.
 * We are incorporated in the UK as a Community Interest Company number 08266350
-* Join us at our forum https://www.openhealthhub.org/ 
+* Join us at our forum https://www.openhealthhub.org/
+
+## License
+* GNU Affero GPL v3 license

@@ -1,10 +1,13 @@
 class DummyDataController < ApplicationController
+  # This controller makes plausible-ish dummy data for a given condition
+  # the condition is specified by SNOMED-CT code in the request
+  #
 
   def calculate
-    # 44054006 | Diabetes mellitus type 2 (disorder) |
     case params[:clinical_code]
 
     when '44054006'
+      # 44054006 | Diabetes mellitus type 2 (disorder) |
       rbg = dummy_glucose
       hba1c = '67'
     else
@@ -28,7 +31,7 @@ class DummyDataController < ApplicationController
           ],
           metadata: {
             authors: 'Dr Marcus Baw',
-            clinical_assurance: 'Dr Marcus Baw',
+            clinical_assurance: 'Not clinically assured - not for live use',
             publication_date: '2018-11-07T13:07:21+0000',
             version: '0.0.1',
           },
