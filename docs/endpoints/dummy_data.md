@@ -1,6 +1,6 @@
 # Dummy Data
 
-Often when developing a health application, you need lots of clinically-plausible data to use for testing datat flows, user interfaces, and persistence validations. Unfortunately, unless you have access to a ready supply of this data, it can be hard to come by. In theory it's usually not hard to fake, after all it will often just be a Normal (Gaussian) distribution of data. But even so it can require a certain amount of clinical acumen and understanding to be able to make plausible results.
+Often when developing a health application, you need lots of clinically-plausible data to use for testing data flows, user interfaces, and persistence validations. Unfortunately, unless you have access to a ready supply of this data, it can be hard to come by. In theory it's usually not hard to fake, after all it will often just be a Normal (Gaussian) distribution of data. But even so it can require a certain amount of clinical acumen and understanding to be able to make plausible results.
 
 This endpoint is currently limited to producing plausible blood glucose and HbA1c measurements for an average, clinically well Type 2 diabetic, returning plausible random blood glucose and HbA1c measurements.
 
@@ -21,8 +21,8 @@ The public testing version of the API is at
   - hba1c_number_in_series
 
 ### Roadmap
-* Add more clinical conditions and relevant, plausible clinical ransomly generated observation data for them.
-* Clinically assure that using this test data is at least as safe as making up test data 'manually'.
+* Add more clinical conditions and relevant, plausible clinical randomly generated observation data for them.
+* Clinically peer-review to assure that using this test data is at least as safe as making up test data 'manually'.
 
 ### Contributing
 * Collaborations are welcome, please see the [Contributing section of the main repo's README](../../README.md)
