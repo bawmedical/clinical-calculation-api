@@ -58,3 +58,6 @@ This API is a work in progress and is offered as an open source project as-is, w
 
 ## License
 * GNU Affero GPL v3 license
+
+## Acknowlegdements and Thanks
+* Dr Julian Costello for donation of some of his own historical blood glucose data

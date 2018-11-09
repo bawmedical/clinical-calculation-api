@@ -8,16 +8,22 @@ class DummyDataController < ApplicationController
 
     when '44054006'
       # 44054006 | Diabetes mellitus type 2 (disorder) |
-      rbg = dummy_glucose
-      hba1c = '67'
+      rbg = dummy_normal_distribution(
+        params[:rbg_mean] || 7.60,
+        params[:rbg_standard_deviation] || 1.17,
+        params[:rbg_number_in_series] || 10,
+      )
+      hba1c = dummy_normal_distribution(
+        params[:hba1c_mean] || 59,
+        params[:hba1c_standard_deviation] || 15.14,
+        params[:hba1c_number_in_series] || 3,
+      )
     else
       message = "No dummy data available for clinical code #{params[:clinical_code]}"
     end
 
     render json: {
-          request_parameters: {
-            clinical_code: params[:clinical_code]
-          },
+          request_parameters: params,
           calculations: [
             {
               random_blood_glucose: rbg,
@@ -38,9 +44,9 @@ class DummyDataController < ApplicationController
         }
   end
 
-  def dummy_glucose(mean=10, sd=2.5, number_in_series=10)
-    normal = Distribution::Normal.rng(mean, sd)
-    number_in_series.times.map { normal.call.round(1) }
+  def dummy_normal_distribution(mean, standard_deviation, number_in_series)
+    normal = Distribution::Normal.rng(mean.to_f, standard_deviation.to_f)
+    number_in_series.to_i.times.map { normal.call.round(1) }
   end
 
 end
