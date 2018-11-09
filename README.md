@@ -23,12 +23,21 @@ This API is a work in progress and is offered as an open source project as-is, w
 * each calculation is a single Rails controller with a `calculate` action containing the calculation code
 * some calculations make use of an external library such as an open source C implementation of the calculation
 
-### Installation for development
+# Installation for development
 * `git clone` this repo
 * cd into the repo directory
 * `bundle install` to install all dependencies
 * `rails s` to start the development server
 * possibly the simplest way to play with the API is to use a REST client such as Postman https://www.getpostman.com/ to send GET requests with the data fields as part of the URL. We are aware that strict HTTP verb usage would suggest a POST with parameters, but we had some minor teething troubles with deployment of this to a remote server and therefore temporarily switched to GET+?urlparams.
+
+# Endpoint Documentation
+All endpoints are currently experimental and subject to change
+
+[/bmi               Body Mass Index calculation](docs/endpoints/bmi.md)
+[/bsa               Body Surface Area calculation](docs/endpoints/bsa.md)
+[/chads2vasc        CHADS2VASC2 Clinical Stroke risk score](docs/endpoints/chads2vasc.md)
+[/dummy_data        Dummy Clinical Observation Data](docs/endpoints/dummy_data.md)
+[/wells_dvt         Wells' Deep Venous Thrombosis clinical risk score](docs/endpoints/wells_dvt.md)
 
 ### Roadmap
 #### now
