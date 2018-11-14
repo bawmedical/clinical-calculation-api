@@ -33,11 +33,11 @@ This API is a work in progress and is offered as an open source project as-is, w
 # Endpoint Documentation
 All endpoints are currently experimental and subject to change
 
-[/bmi               Body Mass Index calculation](docs/endpoints/bmi.md)
-[/bsa               Body Surface Area calculation](docs/endpoints/bsa.md)
-[/chads2vasc        CHADS2VASC2 Clinical Stroke risk score](docs/endpoints/chads2vasc.md)
-[/dummy_data        Dummy Clinical Observation Data](docs/endpoints/dummy_data.md)
-[/wells_dvt         Wells' Deep Venous Thrombosis clinical risk score](docs/endpoints/wells_dvt.md)
+[/bmi               Body Mass Index calculation](docs/endpoints/bmi.md)  
+[/bsa               Body Surface Area calculation](docs/endpoints/bsa.md)  
+[/chads2vasc        CHADS2VASC2 Clinical Stroke risk score](docs/endpoints/chads2vasc.md)  
+[/dummy_data        Dummy Clinical Observation Data](docs/endpoints/dummy_data.md)  
+[/wells_dvt         Wells' Deep Venous Thrombosis clinical risk score](docs/endpoints/wells_dvt.md)  
 
 ### Roadmap
 #### now
