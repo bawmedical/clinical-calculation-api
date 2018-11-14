@@ -1,17 +1,18 @@
 class WellsDvtController < ApplicationController
   def calculate
-    active_cancer = params[:active_cancer]
-    bedridden_major_surgery = params[:bedridden_major_surgery]
-    calf_swollen = params[:calf_swollen]
-    collateral_veins = params[:collateral_veins]
-    full_swelling = params[:full_swelling]
-    local_tenderness = params[:local_tenderness]
-    pitting_oedema = params[:pitting_oedema]
-    immobilised_leg = params[:immobilised_leg]
-    previous_dvt = params[:previous_dvt]
-    alternate_diagnosis = params[:alternate_diagnosis]
+    # all parameters default to false
+    active_cancer = params[:active_cancer] || "false"
+    bedridden_major_surgery = params[:bedridden_major_surgery] || "false"
+    calf_swollen = params[:calf_swollen] || "false"
+    collateral_veins = params[:collateral_veins] || "false"
+    full_swelling = params[:full_swelling] || "false"
+    local_tenderness = params[:local_tenderness] || "false"
+    pitting_oedema = params[:pitting_oedema] || "false"
+    immobilised_leg = params[:immobilised_leg] || "false"
+    previous_dvt = params[:previous_dvt] || "false"
+    alternate_diagnosis = params[:alternate_diagnosis] || "false"
 
-    wells_dvt_score = 0 # start scoring at zero`
+    wells_dvt_score = 0 # start scoring at zero
 
     # Active Cancer (Treatment or Pallation within 6 months)
     wells_dvt_score += 1 if active_cancer == "true"
