@@ -44,7 +44,8 @@ class Chads2vascController < ApplicationController
       },
       calculation: {
         chads2vasc_score: chads2vasc_score,
-        units: 'CHADS2VASC has no SI unit, it is an arbitrary clinical risk scale',
+        units: 'unitless arbitrary clinical risk scale',
+        snomed_ct_id: '438367009' # closest equivalent is the older CHADS2 code - 438367009 | Congestive heart failure, hypertension, age 75 years or older, diabetes, and previous stroke or transient ischemic attack risk score (assessment scale) |
       },
       metadata: {
         authors: '',

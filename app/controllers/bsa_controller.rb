@@ -10,7 +10,8 @@ class BsaController < ApplicationController
       },
       calculation: {
         body_surface_area: bsa,
-        units: 'm^2',
+        units: 'm^2 | square metres',
+        snomed_ct_id: '301898006', # 301898006 | Body surface area (observable entity) |
       },
       metadata: {
         authors: '',

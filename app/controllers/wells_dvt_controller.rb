@@ -59,7 +59,8 @@ class WellsDvtController < ApplicationController
       },
       calculation: {
         wells_dvt_score: wells_dvt_score,
-        units: '',
+        units: 'unitless arbitrary clinical risk scale',
+        snomed_ct_id: '429053008', # | Wells deep vein thrombosis clinical probability score (observable entity) |
       },
       metadata: {
         authors: '',
