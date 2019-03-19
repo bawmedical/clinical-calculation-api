@@ -6,10 +6,10 @@ A Ruby on Rails application which presents a range of clinical calculations as a
 This API is a work in progress and is offered as an open source project as-is, without any warranty. It is expressly not for live use in clinical systems with real patients.
 
 ### Why use an API for this?
-* avoids the need for the calculations to be implemented locally in applications, which can result in errors
-* calculations can be openly peer-reviewed and clinically assured
-* MHRA registration as a medical device can be done once at the API level
-* clinicians can contribute knowledge to a single
+* avoids the need for the calculations to be implemented locally in applications, which can result in errors, such as [this one](https://www.digitalhealth.net/2016/06/qrisk2-in-tpp-fixed-but-up-to-270000-patients-affected/) with TPP's SystmOne implementation of QRisk2, and resulted in patients recieving statin therapy which was not indicated.
+* calculations can be openly peer-reviewed and clinically assured, resulting in a higher level of scrutiny and verifiability
+* MHRA registration as a medical device can be done **once**, at the API level, consumers of the API do not need to worry about MHRA registration for this part of their app.
+* clinicians can contribute knowledge to a single, shared knowledgebase.
 
 ### Background
 * Clinical calculations are tools which medical professionals use to help make decisions. Many of them are available in web page form on sites such as [MDCalc](https://www.mdcalc.com/)
